@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:56:54 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/15 00:58:40 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/15 01:03:53 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int static ft_valid_arguments(char *argv, int flag)
 	int size;
 
 	if (flag)
-		str = "config.cub\0";
+		str = "config.cub";
 	else
-		str = "--save\0";
+		str = "--save";
 	size = ft_strlen(str);
 	len = ft_strlen(argv);
 	if (size != len && flag)
