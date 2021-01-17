@@ -6,11 +6,11 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:56:26 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/17 20:09:37 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/18 01:14:51 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cub3d.h"
+#include "cub3d.h"
 
 int ft_print_error(char *str, int len)
 {

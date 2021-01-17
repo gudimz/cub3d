@@ -6,18 +6,19 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/17 20:21:57 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/18 01:51:36 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "libft.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-
+# include "libft.h"
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+# define MAX_RES_X 1920
+# define MAX_RES_Y 1080
 typedef struct	s_conf
 {
 	int	res_x;
@@ -45,6 +46,6 @@ typedef struct	s_all
 
 
 int ft_print_error(char *str, int len);
-void ft_conf_parser (char **line, t_all *all);
+void ft_conf_parser (char *line, t_all *all);
 
 #endif

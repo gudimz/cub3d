@@ -6,34 +6,38 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:57:22 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/17 20:17:03 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/18 01:52:29 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cub3d.h"
+#include "cub3d.h"
 
 static void ft_resol_parser(char ** str, t_all *all, size_t count, size_t len)
 {
 	int i;
 	int j;
-	int flag;
 
 	i = 1;
 	j = 0;
-	flag = 0;
 	if (str[0][0] == 'R' && len == 1 && count == 3)
 	{
 		while (str[i])
 		{
 			while (str[i][j])
 			{
-				if (!ft_isdigit(str[j]))
+				if (!ft_isdigit(str[i][j]))
 					ft_print_error("incorrect resolution parameter", 30);
+				j++;
 			}
 			i++;
 		}
 		all->conf.res_x = ft_atoi(str[1]);
 		all->conf.res_y = ft_atoi(str[2]);
+		if (all->conf.res_x == -1 || all->conf.res_y == -1)
+		{
+			all->conf.res_x = MAX_RES_X;
+			all->conf.res_y = MAX_RES_Y;
+		}
 	}
 }
 
@@ -73,7 +77,7 @@ static void ft_resol_parser(char ** str, t_all *all, size_t count, size_t len)
 // 	}
 // }
 
-static void ft_conf_parser (char **line, t_all *all)
+void ft_conf_parser (char *line, t_all *all)
 {
 	char **str;
 	size_t len;
@@ -81,14 +85,14 @@ static void ft_conf_parser (char **line, t_all *all)
 
 	count = 0;
 	len = 0;
-	str = ft_split(line, " ");
+	str = ft_split(line, ' ');
 	while (str[count])
 		count++;
 	while (str[0][len])
 		len++;
 	if ((str[0][0] == '\0'))
 		exit(0);
-	ft_resol_parser(&str, all, count, len);
+	ft_resol_parser(str, all, count, len);
 	// ft_textur_parser(&str, all, count, len);
 	// ft_rgb_parser(&str, all, count, len);
 }

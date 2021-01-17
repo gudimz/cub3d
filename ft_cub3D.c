@@ -6,22 +6,22 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:56:54 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/17 20:28:49 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/18 01:55:24 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cub3d.h"
+#include "cub3d.h"
 
-void ft_init_struct(t_all *all)
+static void ft_init_struct(t_all *all)
 {
 	ft_bzero(all, sizeof(all));
-	all->conf.res_x = -1;
-	all->conf.res_y = -1;
+	all->conf.res_x = -2;
+	all->conf.res_y = -2;
 	all->conf.floor = -1;
 	all->conf.ceiling = -1;
 }
 
-int static ft_valid_arguments(char *argv, int flag)
+static int ft_valid_arguments(char *argv, int flag)
 {
 	char *str;
 	size_t len;
@@ -64,10 +64,9 @@ int main(int argc, char **argv)
 	{
 		while (get_next_line(fd, &line))
 		{
-			ft_conf_parser(&line, &all);
+			ft_conf_parser(line, &all);
 		}
-		get_next_line(fd, &line);
-		ft_conf_parser(&line, &all);
+		ft_conf_parser(line, &all);
 	}
 	/*
 	else if (argc == 3 && ft_valid_arguments(argv[1], 1))
