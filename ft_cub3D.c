@@ -6,17 +6,26 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:56:54 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/15 01:03:53 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/17 20:28:49 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "includes/cub3d.h"
+
+void ft_init_struct(t_all *all)
+{
+	ft_bzero(all, sizeof(all));
+	all->conf.res_x = -1;
+	all->conf.res_y = -1;
+	all->conf.floor = -1;
+	all->conf.ceiling = -1;
+}
 
 int static ft_valid_arguments(char *argv, int flag)
 {
 	char *str;
-	int len;
-	int size;
+	size_t len;
+	size_t size;
 
 	if (flag)
 		str = "config.cub";
@@ -41,28 +50,33 @@ int static ft_valid_arguments(char *argv, int flag)
 	return (1);
 }
 
-
 int main(int argc, char **argv)
 {
-	char **line;
+	char *line;
 	int	fd;
+	t_all all;
 
+	ft_init_struct(&all);
 	fd = open(argv[1], O_RDONLY);
 	if (argc < 2 || argc > 3)
 		ft_print_error("Wrong numbers of arguments", 26);
 	else if (argc == 2 && ft_valid_arguments(argv[1], 1))
 	{
-		while (get_next_line(argv[1], &line))
+		while (get_next_line(fd, &line))
 		{
-			ft_config_parser(line);
+			ft_conf_parser(&line, &all);
 		}
+		get_next_line(fd, &line);
+		ft_conf_parser(&line, &all);
 	}
+	/*
 	else if (argc == 3 && ft_valid_arguments(argv[1], 1))
 	{
 		if (ft_valid_arguments(argv[2], 0))
 		{
-			/*скрипт скриншота*/
+			скрипт скриншота
 		}
 	}
+	*/
 	return (0);
 }
