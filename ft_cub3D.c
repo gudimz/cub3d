@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:56:54 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/18 01:55:24 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/20 01:23:49 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 static void ft_init_struct(t_all *all)
 {
+	int i;
+
+	i = 0;
 	ft_bzero(all, sizeof(all));
 	all->conf.res_x = -2;
 	all->conf.res_y = -2;
-	all->conf.floor = -1;
-	all->conf.ceiling = -1;
+	while (i < 3)
+	{
+		all->conf.floor[i] = -2;
+		all->conf.ceiling[i] = -2;
+		i++;
+	}
 }
 
 static int ft_valid_arguments(char *argv, int flag)
@@ -57,16 +64,19 @@ int main(int argc, char **argv)
 	t_all all;
 
 	ft_init_struct(&all);
-	fd = open(argv[1], O_RDONLY);
+	if ((fd = open(argv[1], O_RDONLY)) == -1)
+		return (ft_print_error("Could not open file", 19));
 	if (argc < 2 || argc > 3)
 		ft_print_error("Wrong numbers of arguments", 26);
 	else if (argc == 2 && ft_valid_arguments(argv[1], 1))
 	{
 		while (get_next_line(fd, &line))
 		{
-			ft_conf_parser(line, &all);
+			ft_param_parser(line, &all);
+			free(line);
 		}
-		ft_conf_parser(line, &all);
+		ft_param_parser(line, &all);
+		free(line);
 	}
 	/*
 	else if (argc == 3 && ft_valid_arguments(argv[1], 1))
