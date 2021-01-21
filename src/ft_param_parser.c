@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static int ft_resol_parser(char ** str, t_all *all, size_t len)
+static void ft_resol_parser(char ** str, t_all *all, size_t len)
 {
 	int i;
 	int j;
@@ -80,7 +80,7 @@ static void ft_rgb_parser2(char **str, char **rgb, t_all *all)
 		}
 	}
 }
-static int ft_rgb_parser(char **str, t_all *all, size_t len)
+static void ft_rgb_parser(char **str, t_all *all, size_t len)
 {
 	int i;
 	int j;
@@ -105,26 +105,32 @@ static int ft_rgb_parser(char **str, t_all *all, size_t len)
 	}
 }
 
-void ft_param_parser (char *line, t_all *all)
+int ft_param_parser (char *line, t_all *all)
 {
 	char **str;
 	size_t len;
 	size_t count;
 
 	count = 0;
-	if (!(str = ft_split(line, ' ')))
-		ft_print_error("Failed to allocate memory", 25);
-	else if (str[0])
+	if (!ft_check_struct(all))
 	{
-		while(str[count])
-			count++;
-		len = ft_strlen(str[0]);
-		if (count == 3)
-			ft_resol_parser(str, all, len);
-		else if (count == 2)
+		if (!(str = ft_split(line, ' ')))
+			ft_print_error("Failed to allocate memory", 25);
+		else if (str[0])
 		{
-			ft_textur_parser(str, all, len);
-			ft_rgb_parser(str, all, len);
+			while(str[count])
+				count++;
+			len = ft_strlen(str[0]);
+			if (count == 3)
+				ft_resol_parser(str, all, len);
+			else if (count == 2)
+			{
+				ft_textur_parser(str, all, len);
+				ft_rgb_parser(str, all, len);
+			}
 		}
 	}
+	else
+		ft_map_parser(line, all);
+	return (0);
 }
