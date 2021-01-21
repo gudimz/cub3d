@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/21 01:51:50 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/21 22:25:01 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ typedef struct	s_conf
 	char	*sprite;
 	int	floor[3];
 	int	ceiling[3];
+	int flag;
 }				t_conf;
 typedef struct	s_map
 {
 	size_t		width;
 	size_t		height;
+	t_list		*begin;
 	char	*array;
 }				t_map;
 
