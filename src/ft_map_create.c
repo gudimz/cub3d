@@ -6,22 +6,24 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 00:54:18 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/21 23:45:28 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/24 01:06:26 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int ft_map_parser(char *line, t_all *all)
+void ft_map_parser(char *line, t_all *all)
 {
 	char *tmp;
 	t_list *new;
+	size_t len;
 
-	if (ft_strlen(line) != 0)
+	len = ft_strlen(line);
+	if (len != 0)
 	{
-		all->map.height +=1;
-		if (all->map.width < ft_strlen(line))
-			all->map.width = ft_strlen(line);
+		all->map.height += 1;
+		if (all->map.width < len)
+			all->map.width = len;
 		if(!(tmp = ft_strdup(line)))
 			ft_print_error("Failed to allocate memory", 25);
 		if(!(new = ft_lstnew(tmp)))
@@ -29,27 +31,40 @@ int ft_map_parser(char *line, t_all *all)
 			free(tmp);
 			ft_print_error("Failed to allocate memory", 25);
 		}
-		ft_lstadd_back(all->map.begin, new);
+		ft_lstadd_back(&(all->map.begin), new);
 	}
-	return (0);
 }
 
 int ft_map_create(t_all *all)
 {
-	size_t len;
-	size_t i;
-	size_t j;
+	size_t yy;
+	size_t xx;
+	char *str;
+	char c;
+	t_list *list;
 
-	i = 0;
-	len = all->map.height * all->map.width;
+	list = all->map.begin;
+	yy = 0;
 	all->map.array = ft_calloc(all->map.height, all->map.width);
-	while (i < len || all->map.begin)
+	while (yy < all->map.height && list)
 	{
-		j = 0;
-		while (all->map.begin->content)
-			all->map.array[i++] = all->map.begin->content[j++];
-		all->map.begin->content = all->map.begin->next;
+		xx = 0;
+		str = (char *)list->content;
+		while (xx < all->map.width && str[xx])
+		{
+			if (str[xx] == ' ')
+				c = 0;
+			else if (ft_strchr("WENS", str[xx]))          /* здесь будет обработка положения персонажа*/
+				c = '0';
+			else
+				c = str[xx];
+			all->map.array[yy * all->map.width + xx] = c;
+			xx++;
+		}
+		write(1, all->map.array + (yy * all->map.width), all->map.width);
+		write(1, "\n", 1);
+		list = list->next;
+		yy++;
 	}
-
 	return (0);
 }

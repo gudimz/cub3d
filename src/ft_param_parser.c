@@ -56,43 +56,47 @@ static void ft_textur_parser(char ** str, t_all *all, size_t len)
 		all->conf.sprite = ft_strdup(str[1]);
 }
 
-static void ft_rgb_parser2(char **str, char **rgb, t_all *all)
+static void ft_rgb_parser_color(char **str, char **rgb, t_all *all)
 {
-	int i;
+	int c;
 
-	i = -1;
 	if (str[0][0] == 'F')
 	{
-		while (rgb[++i])
-		{
-			if (((all->conf.floor[i] = ft_atoi(rgb[i])) > 255) || \
-			all->conf.floor[i] == -1)
-				ft_print_error("color value out of range [0.255]", 32);
-		}
+			if ((c = ft_check_rgb_range(rgb[0])))
+				all->conf.floor.r = (unsigned char)c;
+			if ((c = ft_check_rgb_range(rgb[1])))
+				all->conf.floor.g = (unsigned char)c;
+			if ((c = ft_check_rgb_range(rgb[2])))
+				all->conf.floor.b = (unsigned char)c;
+			all->conf.floor.flag = 0;
 	}
 	else if (str[0][0] == 'C')
 	{
-		while (rgb[++i])
-		{
-			if (((all->conf.ceiling[i] = ft_atoi(rgb[i])) > 255) || \
-			all->conf.ceiling[i] == -1)
-				ft_print_error("Color value out of range [0.255]", 32);
-		}
+			if ((c = ft_check_rgb_range(rgb[0])))
+				all->conf.ceiling.r = (unsigned char)c;
+			if ((c = ft_check_rgb_range(rgb[1])))
+				all->conf.ceiling.g = (unsigned char)c;
+			if ((c = ft_check_rgb_range(rgb[2])))
+				all->conf.ceiling.b = (unsigned char)c;
+			all->conf.ceiling.flag = 0;
 	}
+	//printf("%d\n", all->conf.floor.flag);
+	//printf("%d\n", all->conf.ceiling.flag);
 }
+
 static void ft_rgb_parser(char **str, t_all *all, size_t len)
 {
 	int i;
 	int j;
 	char **rgb;
 
-	i = -1;
+	i = 0;
 	j = 0;
 	if ((str[0][0] == 'F' || str[0][0] == 'C') && len == 1)
 	{
 		if (!(rgb = ft_split(str[1], ',')))
 			ft_print_error("Failed to allocate memory", 25);
-		while (rgb[++i])
+		while (rgb[i])
 		{
 			while (rgb[i][j])
 			{
@@ -100,8 +104,12 @@ static void ft_rgb_parser(char **str, t_all *all, size_t len)
 					ft_print_error("Incorrect color value", 21);
 				j++;
 			}
+			i++;
 		}
-		ft_rgb_parser2(str, rgb, all);
+		if (i != 3)
+			ft_print_error("Incorrect color value", 21);
+		else
+			ft_rgb_parser_color(str, rgb, all);
 	}
 }
 
@@ -128,9 +136,14 @@ int ft_param_parser (char *line, t_all *all)
 				ft_textur_parser(str, all, len);
 				ft_rgb_parser(str, all, len);
 			}
+			else
+				ft_print_error("Incorrect parameter value", 25);
 		}
 	}
 	else
+	{
 		ft_map_parser(line, all);
+		//printf("%p", all->map);
+	}
 	return (0);
 }

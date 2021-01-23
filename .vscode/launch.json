@@ -10,7 +10,7 @@
 			"name": "(lldb) Запустить",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/a.out",
+			"program": "${workspaceFolder}/src/a.out",
 			"args": ["config.cub"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",

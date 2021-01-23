@@ -6,28 +6,11 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:56:54 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/21 22:30:24 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/24 00:39:29 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void ft_init_struct(t_all *all)
-{
-	int i;
-
-	i = 0;
-	ft_bzero(all, sizeof(all));
-	all->conf.res_x = -2;
-	all->conf.res_y = -2;
-	all->conf.flag = 1;
-	while (i < 3)
-	{
-		all->conf.floor[i] = -2;
-		all->conf.ceiling[i] = -2;
-		i++;
-	}
-}
 
 static int ft_valid_arguments(char *argv, int flag)
 {
@@ -56,25 +39,6 @@ static int ft_valid_arguments(char *argv, int flag)
 		}
 	}
 	return (1);
-}
-
-int ft_check_struct(t_all *all)
-{
-	int i;
-
-	i = 0;
-	if (all->conf.res_x != -2 && all->conf.res_y != -2 && all->conf.north \
-	&& all->conf.south && all->conf.west && all->conf.east && all->conf.sprite)
-	{
-		while (i < 3)
-		{
-			if (all->conf.floor[i] == -2 && all->conf.ceiling[i] == -2)
-				return (0);
-			i++;
-		}
-		return (1);
-	}
-	return (0);
 }
 
 int main(int argc, char **argv)
