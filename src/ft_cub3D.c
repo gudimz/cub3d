@@ -6,31 +6,31 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:56:54 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/24 20:46:32 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/25 23:29:36 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int ft_valid_arguments(char *argv, int flag)
+static int ft_valid_arguments(char *arg, int flag)
 {
 	char *str;
 	size_t len;
 	size_t size;
 
 	if (flag)
-		str = "config.cub";
+		str = ".cub";
 	else
 		str = "--save";
 	size = ft_strlen(str);
-	len = ft_strlen(argv);
-	if (size != len && flag)
+	len = ft_strlen(arg);
+	if (len < 5 && flag)
 		ft_print_error("Incorrect config call", 21);
 	else if (size != len && !flag)
 		ft_print_error("Incorrect save call", 19);
-	while (len > 0 && size > 0)
+	while (size > 0)
 	{
-		if (argv[size--] != str[len--])
+		if (arg[len--] != str[size--])
 		{
 			if (flag)
 				ft_print_error("Incorrect config call", 21);

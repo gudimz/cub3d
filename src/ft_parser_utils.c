@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 16:21:12 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/24 01:05:09 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/26 01:02:25 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,11 @@ int ft_check_rgb_range(char *rgb)
 	if (c == -1 || c > 255)
 		ft_print_error("Color value out of range [0.255]", 32);
 	return (c);
+}
+
+int ft_check_duplicate(char *path)
+{
+	if (path)
+		ft_print_error("Texture parameter is duplicated", 31);
+	return (1);
 }

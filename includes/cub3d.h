@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/23 23:23:23 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/26 01:04:14 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int ft_print_error(char *str, int len);
 int ft_param_parser (char *line, t_all *all);
 void ft_init_struct(t_all *all);
 int ft_check_struct(t_all *all);
+int ft_check_duplicate(char *path);
 void ft_map_parser(char *line, t_all *all);
 int ft_map_create(t_all *all);
 int ft_check_rgb_range(char *rgb);

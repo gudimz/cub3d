@@ -1,7 +1,6 @@
 R 1920 1080
 
 SO ./path_texture
-SO ./path_texture
 WE ./path_texture
 EA ./path_texture
 NO ./path_texture
