@@ -146,6 +146,5 @@ int ft_param_parser (char *line, t_all *all)
 	}
 	else
 		ft_map_parser(line, all);
-
 	return (0);
 }

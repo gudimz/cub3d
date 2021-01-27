@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/26 01:04:14 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/27 23:21:14 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_conf
 	t_color	floor;
 	t_color	ceiling;
 	int flag;
+	int count;
 }				t_conf;
 
 typedef struct	s_map
@@ -61,11 +62,12 @@ typedef struct	s_all
 
 int ft_print_error(char *str, int len);
 int ft_param_parser (char *line, t_all *all);
+char ft_map_char(t_all *all, size_t xx, size_t yy);
 void ft_init_struct(t_all *all);
 int ft_check_struct(t_all *all);
 int ft_check_duplicate(char *path);
 void ft_map_parser(char *line, t_all *all);
-int ft_map_create(t_all *all);
+void ft_map_create(t_all *all);
 int ft_check_rgb_range(char *rgb);
 
 
