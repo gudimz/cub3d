@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/29 19:43:59 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/30 20:57:02 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # define MIN_RES_Y 68
 typedef struct	s_color
 {
-	unsigned char		flag;
-	unsigned char		r;
-	unsigned char		g;
 	unsigned char		b;
+	unsigned char		g;
+	unsigned char		r;
+	unsigned char		flag;
 }				t_color;
 
 typedef struct	s_conf
@@ -54,10 +54,17 @@ typedef struct	s_map
 	char	*array;
 }				t_map;
 
+typedef struct	s_plr
+{
+	float xx;
+	float yy;
+	float hor;
+}				t_plr;
+
 typedef struct  s_data
 {
 	void		*img;
-	char		*addr;
+	t_color		*addr;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
@@ -65,6 +72,7 @@ typedef struct  s_data
 
 typedef struct	s_all
 {
+	t_plr person;
 	t_data img;
 	t_map map;
 	t_conf conf;
@@ -81,6 +89,8 @@ void ft_map_parser(char *line, t_all *all);
 void ft_map_create(t_all *all);
 int ft_check_rgb_range(char *rgb);
 void	ft_mlx_init(t_all *all);
+void	my_pixel_put(t_all *all, int x, int y, t_color color);
+void ft_draw_screen(t_all *all);
 
 
 #endif
