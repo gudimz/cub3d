@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 20:48:04 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/30 21:30:04 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/30 21:36:27 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ static void ft_draw_background(t_all *all, int width, int height, int flag)
 	{
 		x = 0;
 		while (x < width)
-		{
-			my_pixel_put(all, x, start, color);
-			x++;
-		}
+			my_pixel_put(all, x++, start, color);
 		start++;
 	}
 }
