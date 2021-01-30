@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/27 23:21:14 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/29 19:43:59 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include "libft.h"
+# include "mlx.h"
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -53,8 +54,18 @@ typedef struct	s_map
 	char	*array;
 }				t_map;
 
+typedef struct  s_data
+{
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+}				t_data;
+
 typedef struct	s_all
 {
+	t_data img;
 	t_map map;
 	t_conf conf;
 }				t_all;
@@ -69,6 +80,7 @@ int ft_check_duplicate(char *path);
 void ft_map_parser(char *line, t_all *all);
 void ft_map_create(t_all *all);
 int ft_check_rgb_range(char *rgb);
+void	ft_mlx_init(t_all *all);
 
 
 #endif

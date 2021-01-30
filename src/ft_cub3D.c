@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:56:54 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/25 23:29:36 by agigi            ###   ########.fr       */
+/*   Updated: 2021/01/29 19:03:29 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int main(int argc, char **argv)
 			free(line);
 		}
 		ft_map_create(&all);
+		ft_mlx_init(&all);
 	}
 	/*
 	else if (argc == 3 && ft_valid_arguments(argv[1], 1))
