@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_draw_screen.c                                   :+:      :+:    :+:   */
+/*   ft_drawing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -41,18 +41,8 @@ static void ft_draw_background(t_all *all, int width, int height, int flag)
 	}
 }
 
-void ft_draw_screen(t_all *all)
+void ft_drawing(t_all *all)
 {
-	void *mlx;
-	void *mlx_win;
-
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, all->conf.res_x, all->conf.res_y, "Cub3D");
-	all->img.img = mlx_new_image(mlx, all->conf.res_x, all->conf.res_y);
-	all->img.addr = (t_color *)mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, \
-	&all->img.line_length, &all->img.endian);
 	ft_draw_background(all, all->conf.res_x, all->conf.res_y, 0);
 	ft_draw_background(all, all->conf.res_x, all->conf.res_y, 1);
-	mlx_put_image_to_window(mlx, mlx_win, all->img.img, 0, 0);
-    mlx_loop(mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/30 20:57:02 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/03 22:28:06 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <math.h>
 # include <stdio.h>/*DELETE BEFORE PUSH!!!!!!*/
 # define MAX_RES_X 1920
 # define MAX_RES_Y 1080
@@ -54,15 +55,19 @@ typedef struct	s_map
 	char	*array;
 }				t_map;
 
-typedef struct	s_plr
+typedef struct	s_player
 {
-	float xx;
-	float yy;
-	float hor;
-}				t_plr;
+	float pos_xx;
+	float pos_yy;
+	float direct;
+	float plane_xx;
+	float plane_yy;
+}				t_player;
 
 typedef struct  s_data
 {
+	void		*mlx;
+	void		*win;
 	void		*img;
 	t_color		*addr;
 	int			bits_per_pixel;
@@ -70,9 +75,23 @@ typedef struct  s_data
 	int			endian;
 }				t_data;
 
+typedef struct  s_raycast
+{
+	float cam;
+	float ray_dir_xx;
+	float ray_dir_yy;
+	float map_x;
+	float map_y;
+	float side_dist_xx;
+	float side_dist_yy;
+	float delta_dist_xx;
+	float delta_dist_yy;
+}				t_raycast;
+
 typedef struct	s_all
 {
-	t_plr person;
+	t_raycast rcast;
+	t_player plr;
 	t_data img;
 	t_map map;
 	t_conf conf;
@@ -88,9 +107,9 @@ int ft_check_duplicate(char *path);
 void ft_map_parser(char *line, t_all *all);
 void ft_map_create(t_all *all);
 int ft_check_rgb_range(char *rgb);
-void	ft_mlx_init(t_all *all);
 void	my_pixel_put(t_all *all, int x, int y, t_color color);
-void ft_draw_screen(t_all *all);
+void ft_mlx_init(t_all *all);
+void ft_drawing(t_all *all);
 
 
 #endif

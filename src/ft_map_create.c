@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 00:54:18 by agigi             #+#    #+#             */
-/*   Updated: 2021/01/30 20:03:37 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/03 22:25:31 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,17 @@ static char ft_init_map(char *str, size_t xx, size_t yy, t_all *all)
 	else if (ft_strchr("WENS", str[xx]))
 	{
 		all->conf.count += 1;
-		all->person.xx = xx;
-		all->person.yy = yy;
+		all->plr.pos_xx = xx + 0.5;
+		all->plr.pos_yy = yy + 0.5;
 		if (str[xx] == 'N')
-			all->person.hor = 0;
+			all->plr.direct = 0;
 		else if (str[xx] == 'E')
-			all->person.hor = 90;
+			all->plr.direct = 0.25;
 		else if (str[xx] == 'S')
-			all->person.hor = 180;
+			all->plr.direct = 0.5;
 		else if (str[xx] == 'W')
-			all->person.hor = 270;
+			all->plr.direct = 0.75;
+
 		c = '0';
 	}
 	else
