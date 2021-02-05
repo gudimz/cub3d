@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/03 22:28:06 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/04 21:31:25 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>/*DELETE BEFORE PUSH!!!!!!*/
+# define STEP 0.2
+# define DIR_ANGLE 0.1
 # define MAX_RES_X 1920
 # define MAX_RES_Y 1080
 # define MIN_RES_X 120
@@ -110,6 +112,7 @@ int ft_check_rgb_range(char *rgb);
 void	my_pixel_put(t_all *all, int x, int y, t_color color);
 void ft_mlx_init(t_all *all);
 void ft_drawing(t_all *all);
+void ft_raycasting(t_all *all);
 
 
 #endif
