@@ -41,6 +41,30 @@ static void ft_draw_background(t_all *all, int width, int height, int flag)
 	}
 }
 
+void ft_drawing_wall(t_all *all)
+{
+	int x;
+	int start;
+	int finish;
+	t_color color;
+
+	color.b = 0;
+	color.g = 0;
+	color.r = 255;
+	color.flag = 1;
+	x = 0;
+	start = 0;
+	finish = all->rcast.dist_wall;
+	while (start < finish)
+	{
+		x = 0;
+		while (x < 1)
+			my_pixel_put(all, x++, start, color);
+		start++;
+	}
+
+}
+
 void ft_drawing(t_all *all)
 {
 	ft_draw_background(all, all->conf.res_x, all->conf.res_y, 0);

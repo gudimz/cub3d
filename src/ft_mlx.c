@@ -24,37 +24,11 @@ int	ft_close(t_all *all)
 	return (0);
 }
 
-void ft_move_camera(t_all *all, char key)
-{
-	if (key == 'L')
-	{
-		all->plr.direct -= DIR_ANGLE;
-		if (all->plr.direct < 0)
-			all->plr.direct *= -1;
-	}
-	if (key == 'R')
-	{
-		all->plr.direct += DIR_ANGLE;
-		if (all->plr.direct >= 1)
-			all->plr.direct -= 1;
-	}
-}
 
-void ft_move_player(t_all *all, char key)
-{
-	if (key == 'W')
-		all->plr.pos_yy -= STEP;
-	if (key == 'S')
-		all->plr.pos_yy += STEP;
-	if (key == 'A')
-		all->plr.pos_xx -= STEP;
-	if (key == 'D')
-		all->plr.pos_xx += STEP;
-}
 
 int ft_keyboard(int keycode, t_all *all)
 {
-	if (keycode == 13)
+	/*if (keycode == 13)
 		ft_move_player(all, 'W');
 	if (keycode == 1)
 		ft_move_player(all, 'S');
@@ -65,7 +39,7 @@ int ft_keyboard(int keycode, t_all *all)
 	if (keycode == 123)
 		ft_move_camera(all, 'L');
 	if (keycode == 124)
-		ft_move_camera(all, 'R');
+		ft_move_camera(all, 'R');*/
 	if (keycode == 53)
 		ft_close(all);
 	return (0);
@@ -75,13 +49,14 @@ int ft_next_frame(t_all *all)
 {
 	ft_drawing(all);
 	ft_raycasting(all);
+	ft_drawing_wall(all);
 	mlx_put_image_to_window(all->img.mlx, all->img.win, all->img.img, 0, 0);
 	return (0);
 }
 
 void ft_mlx_init(t_all *all)
 {
-	//ft_init_player(all);
+	ft_init_raycasting(all);
 	all->img.mlx = mlx_init();
 	all->img.win = mlx_new_window(all->img.mlx, all->conf.res_x, all->conf.res_y\
 	, "Cub3D");

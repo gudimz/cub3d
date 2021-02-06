@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/04 21:31:25 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/06 21:32:24 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>/*DELETE BEFORE PUSH!!!!!!*/
-# define STEP 0.2
-# define DIR_ANGLE 0.1
+# define PI 3.14159265
+# define SCALE 64
 # define MAX_RES_X 1920
 # define MAX_RES_Y 1080
 # define MIN_RES_X 120
@@ -57,13 +57,17 @@ typedef struct	s_map
 	char	*array;
 }				t_map;
 
+typedef struct s_coordin
+{
+	float xx;
+	float yy;
+}				t_coordin;
+
 typedef struct	s_player
 {
-	float pos_xx;
-	float pos_yy;
-	float direct;
-	float plane_xx;
-	float plane_yy;
+	t_coordin posit;
+	int POV;
+	int FOV;
 }				t_player;
 
 typedef struct  s_data
@@ -77,17 +81,17 @@ typedef struct  s_data
 	int			endian;
 }				t_data;
 
+
 typedef struct  s_raycast
 {
-	float cam;
-	float ray_dir_xx;
-	float ray_dir_yy;
-	float map_x;
-	float map_y;
-	float side_dist_xx;
-	float side_dist_yy;
-	float delta_dist_xx;
-	float delta_dist_yy;
+	int plane_w;
+	int plane_h;
+	int ray_dir;
+	int start;
+	int end;
+	float dist_wall;
+	t_coordin dist;
+	t_coordin sqr;
 }				t_raycast;
 
 typedef struct	s_all
@@ -112,7 +116,9 @@ int ft_check_rgb_range(char *rgb);
 void	my_pixel_put(t_all *all, int x, int y, t_color color);
 void ft_mlx_init(t_all *all);
 void ft_drawing(t_all *all);
+void ft_drawing_wall(t_all *all);
 void ft_raycasting(t_all *all);
+void ft_init_raycasting(t_all *all);
 
 
 #endif

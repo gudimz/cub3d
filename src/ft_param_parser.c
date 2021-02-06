@@ -21,15 +21,17 @@ static void ft_resol_parser(char ** str, t_all *all)
 	j = 0;
 	if (all->conf.res_x != -2 || all->conf.res_y != -2)
 		ft_print_error("Resolution parameter is duplicated", 34);
-	while (str[++i])
-	{
-		while (str[i][j])
-		{
-			if (!ft_isdigit(str[i][j]))
-				ft_print_error("Incorrect resolution parameter", 30);
-			j++;
-		}
-	}
+	// while (str[++i])
+	// {
+	// 	printf("DOOOOO");
+	// 	while (str[i][j])
+	// 	{
+	// 		if (!ft_isdigit(str[i][j]))
+	// 			ft_print_error("Incorrect resolution parameter", 30);
+	// 		j++;
+	// 	}
+	// 	printf("POSLE");
+	// }
 	if ((all->conf.res_x = ft_atoi(str[1])) == -1)
 		all->conf.res_x = MAX_RES_X;
 	if ((all->conf.res_y = ft_atoi(str[2])) == -1)
