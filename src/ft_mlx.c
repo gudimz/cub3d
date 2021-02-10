@@ -24,39 +24,55 @@ int	ft_close(t_all *all)
 	return (0);
 }
 
-
-
-int ft_keyboard(int keycode, t_all *all)
+void ft_texture_side(t_all *all)
 {
-	/*if (keycode == 13)
-		ft_move_player(all, 'W');
-	if (keycode == 1)
-		ft_move_player(all, 'S');
-	if (keycode == 0)
-		ft_move_player(all, 'A');
-	if (keycode == 2)
-		ft_move_player(all, 'D');
-	if (keycode == 123)
-		ft_move_camera(all, 'L');
-	if (keycode == 124)
-		ft_move_camera(all, 'R');*/
-	if (keycode == 53)
-		ft_close(all);
-	return (0);
+	if (all->rcast.side == 0)
+	{
+		if (all->rcast.map_x < all->plr.pos.xx)
+			all->render.wall_side = 0;
+		else
+			all->render.wall_side = 1;
+	}
+	else if (all->rcast.side == 1)
+	{
+		if (all->rcast.map_y < all->plr.pos.yy)
+			all->render.wall_side = 2;
+		else
+			all->render.wall_side = 3;
+	}
+}
+
+void CHECK(t_all *all)
+{
+	printf("|================================================|\n");
+	printf("|************************************************|\n");
+	printf(" player coord >>>>xx = %.1f<<<<  >>>>yy = %.1f<<<< \n", all->plr.pos.xx, all->plr.pos.yy);
+	printf("|************************************************|\n");
+	printf("|************************************************|\n");
+	printf(" Расстояние до стены = >>%.2f<<\n", all->rcast.dist_wall);
+	printf("|************************************************|\n");
+	printf("|================================================|\n");
 }
 
 int ft_next_frame(t_all *all)
 {
-	ft_drawing(all);
-	ft_raycasting(all);
-	ft_drawing_wall(all);
-	mlx_put_image_to_window(all->img.mlx, all->img.win, all->img.img, 0, 0);
+	int x;
+
+	x = 0;
+	while (x < all->conf.res_x)
+	{
+		ft_raycasting(x, all);
+		ft_texture_side(all);
+		ft_drawing(x, all);
+		CHECK(all);
+		mlx_put_image_to_window(all->img.mlx, all->img.win, all->img.img, 0, 0);
+		x++;
+	}
 	return (0);
 }
 
 void ft_mlx_init(t_all *all)
 {
-	ft_init_raycasting(all);
 	all->img.mlx = mlx_init();
 	all->img.win = mlx_new_window(all->img.mlx, all->conf.res_x, all->conf.res_y\
 	, "Cub3D");

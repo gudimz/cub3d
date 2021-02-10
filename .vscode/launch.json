@@ -5,18 +5,18 @@
 	"version": "0.2.0",
     "configurations": [
 
-	
+
 		{
 			"name": "(lldb) Запустить",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/src/a.out",
+			"program": "${workspaceFolder}/Cub3D",
 			"args": ["config.cub"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [ { "name": "squid", "value": "clam" } ],
 			"externalConsole": true,
-			"MIMode": "gdb"
+			"MIMode": "lldb"
 		},
 		{
 			"name": "(lldb) Подключить",
@@ -24,7 +24,7 @@
 			"request": "attach",
 			"program": "${workspaceFolder}/${workspaceFolderBasename}",
 			"processId": "${command:pickProcess}",
-			"MIMode": "gdb"
+			"MIMode": "lldb"
 		}
     ]
 }

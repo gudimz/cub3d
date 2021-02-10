@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/06 21:32:24 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/11 00:51:56 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>/*DELETE BEFORE PUSH!!!!!!*/
-# define PI 3.14159265
-# define SCALE 64
 # define MAX_RES_X 1920
 # define MAX_RES_Y 1080
 # define MIN_RES_X 120
@@ -65,9 +63,11 @@ typedef struct s_coordin
 
 typedef struct	s_player
 {
-	t_coordin posit;
-	int POV;
-	int FOV;
+	t_coordin pos;
+	t_coordin plane;
+	t_coordin dir;
+	float move_speed;
+	float rot_speed;
 }				t_player;
 
 typedef struct  s_data
@@ -84,18 +84,26 @@ typedef struct  s_data
 
 typedef struct  s_raycast
 {
-	int plane_w;
-	int plane_h;
-	int ray_dir;
-	int start;
-	int end;
+	float cam_x;
+	t_coordin ray_dir;
+	int map_x;
+	int map_y;
+	t_coordin delta_dist;
+	t_coordin side_dist;
+	int step_x;
+	int step_y;
+	int side;
 	float dist_wall;
-	t_coordin dist;
-	t_coordin sqr;
 }				t_raycast;
+
+typedef struct s_rend
+{
+	int wall_side;
+}				t_rend;
 
 typedef struct	s_all
 {
+	t_rend render;
 	t_raycast rcast;
 	t_player plr;
 	t_data img;
@@ -106,19 +114,20 @@ typedef struct	s_all
 
 int ft_print_error(char *str, int len);
 int ft_param_parser (char *line, t_all *all);
-char ft_map_char(t_all *all, size_t xx, size_t yy);
 void ft_init_struct(t_all *all);
 int ft_check_struct(t_all *all);
 int ft_check_duplicate(char *path);
 void ft_map_parser(char *line, t_all *all);
 void ft_map_create(t_all *all);
+char ft_map_char(t_all *all, size_t xx, size_t yy);
 int ft_check_rgb_range(char *rgb);
-void	my_pixel_put(t_all *all, int x, int y, t_color color);
+void	ft_my_pixel_put(t_all *all, int x, int y, t_color color);
 void ft_mlx_init(t_all *all);
-void ft_drawing(t_all *all);
-void ft_drawing_wall(t_all *all);
-void ft_raycasting(t_all *all);
-void ft_init_raycasting(t_all *all);
-
+void ft_drawing(int x, t_all *all);
+void ft_raycasting(int x, t_all *all);
+int ft_keyboard(int keycode, t_all *all);
+void ft_move_player(t_all *all, char key);
+void ft_move_camera(t_all *all, char key);
+int	ft_close(t_all *all);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 00:54:18 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/06 18:18:20 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/11 01:10:28 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,34 @@ void ft_map_parser(char *line, t_all *all)
 	ft_lstadd_back(&(all->map.begin), new);
 }
 
+static void ft_init_player(char *str, size_t xx, size_t yy, t_all *all)
+{
+	all->plr.pos.xx = xx;
+	all->plr.pos.yy = yy;
+	all->plr.move_speed = 0.5;
+	all->plr.rot_speed = 0.2;
+	if (str[xx] == 'N')
+	{
+		all->plr.dir.yy = -1;
+		all->plr.plane.xx = 0.66;
+	}
+	else if (str[xx] == 'E')
+	{
+		all->plr.dir.xx = 1;
+		all->plr.plane.yy = 0.66;
+	}
+	else if (str[xx] == 'S')
+	{
+		all->plr.dir.yy = 1;
+		all->plr.plane.xx = -0.66;
+	}
+	else if (str[xx] == 'W')
+	{
+		all->plr.dir.xx = -1;
+		all->plr.plane.yy = -0.66;
+	}
+}
+
 static char ft_init_map(char *str, size_t xx, size_t yy, t_all *all)
 {
 	char c;
@@ -48,17 +76,7 @@ static char ft_init_map(char *str, size_t xx, size_t yy, t_all *all)
 	else if (ft_strchr("WENS", str[xx]))
 	{
 		all->conf.count += 1;
-		all->plr.posit.xx = xx + 0.5;
-		all->plr.posit.yy = yy + 0.5;
-		if (str[xx] == 'N')
-			all->plr.POV = 90;
-		else if (str[xx] == 'E')
-			all->plr.POV = 0;
-		else if (str[xx] == 'S')
-			all->plr.POV = 270;
-		else if (str[xx] == 'W')
-			all->plr.POV = 180;
-		all->plr.FOV = 60;
+		ft_init_player(str, xx, yy, all);
 		c = '0';
 	}
 	else

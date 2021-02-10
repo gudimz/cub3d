@@ -6,63 +6,91 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 21:30:22 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/06 21:44:20 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/11 01:23:15 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void ft_init_raycasting(t_all *all)
+static void ft_init_step(t_all *all)
 {
-	all->rcast.plane_w = 320;
-	all->rcast.plane_h = 200;
-	all->rcast.ray_dir = (int)(all->rcast.plane_w / 2) \
-	/ tanf((all->plr.FOV / 2) * PI / 180);
+	if (all->rcast.ray_dir.xx < 0)
+	{
+		all->rcast.step_x = -1;
+		all->rcast.side_dist.xx = (all->plr.pos.xx - all->rcast.map_x) \
+		* all->rcast.delta_dist.xx;
+	}
+	else
+	{
+		all->rcast.step_x = 1;
+		all->rcast.side_dist.xx = (all->rcast.map_x + 1.0 - all->plr.pos.xx) \
+		* all->rcast.delta_dist.xx;
+	}
+	if (all->rcast.ray_dir.yy < 0)
+	{
+		all->rcast.step_y = -1;
+		all->rcast.side_dist.yy = (all->plr.pos.yy - all->rcast.map_y) \
+		* all->rcast.delta_dist.yy;
+	}
+	else
+	{
+		all->rcast.step_y = 1;
+		all->rcast.side_dist.yy = (all->rcast.map_y + 1.0 - all->plr.pos.yy) \
+		* all->rcast.delta_dist.yy;
+	}
 }
 
-void ft_raycasting(t_all *all)
+static void ft_dda(t_all *all)
 {
-	float angle;
-	int flag;
+	int hit;
 
-	flag = 1;
-	all->rcast.start = all->plr.POV - (all->plr.FOV / 2); //60
-	all->rcast.end = all->plr.POV + (all->plr.FOV / 2); //120
-	angle = 1;
-	while (all->rcast.start <= all->rcast.end)
+	hit = 0;
+	while (hit == 0)
 	{
-		if (all->plr.POV < 180)
-				all->rcast.dist.yy = (int)all->plr.posit.yy - 1;
-		else
-			all->rcast.dist.yy = (int)all->plr.posit.yy + 64;
-		all->rcast.dist.xx = (int)all->plr.posit.xx + \
-		(all->plr.posit.yy - all->rcast.dist.yy) / tanf(angle * PI / 180);
-		all->rcast.sqr.xx = (int)1 / tanf(angle * PI / 180);
-		all->rcast.sqr.yy = (int)tanf(angle * PI / 180);
-		while (all->rcast.dist.xx < 20000 && all->rcast.dist.yy < 20000 && flag)
+		if (all->rcast.side_dist.xx < all->rcast.side_dist.yy)
 		{
-			if (all->map.array[(int)all->rcast.dist.yy * \
-			all->map.width + (int)all->rcast.dist.xx] != '0')
-			{
-				all->rcast.dist.xx = fabs((all->plr.posit.xx - \
-				all->rcast.dist.xx) / cos(angle * PI / 180));
-				all->rcast.dist.yy = fabs((all->plr.posit.yy - \
-				all->rcast.dist.yy) / sin(angle * PI / 180));
-				// printf("1111111\n");
-				// printf("%f\n", all->rcast.dist.xx);
-				// printf("%f\n", all->rcast.dist.yy);
-				// printf("HEY<<<<<<<<\n");
-				if (all->rcast.dist.xx > all->rcast.dist.yy)
-					all->rcast.dist_wall = all->rcast.dist.xx;
-				else
-					all->rcast.dist_wall = all->rcast.dist.yy;
-				//printf("\n%f",all->rcast.dist_wall);
-				flag = 0;
-				break;
-			}
-			all->rcast.dist.xx += all->rcast.sqr.xx;
-			all->rcast.dist.yy += all->rcast.sqr.yy;
+			all->rcast.side_dist.xx += all->rcast.delta_dist.xx;
+			all->rcast.map_x += all->rcast.step_x;
+			all->rcast.side = 0;
 		}
-		all->rcast.start += angle;
+		else
+		{
+			all->rcast.side_dist.yy += all->rcast.delta_dist.yy;
+			all->rcast.map_y += all->rcast.step_y;
+			all->rcast.side = 1;
+		}
+		if (all->map.array[all->rcast.map_y * all->map.width \
+		+ all->rcast.map_x] == '1')
+			hit = 1;
 	}
+}
+
+static void ft_calc_dist(t_all *all)
+{
+	if (all->rcast.side == 0)
+	{
+		all->rcast.dist_wall = (all->rcast.map_x - all->plr.pos.xx \
+		+ (1 - all->rcast.step_x) / 2) / all->rcast.ray_dir.xx;
+	}
+	else
+	{
+		all->rcast.dist_wall = (all->rcast.map_y - all->plr.pos.yy \
+		+ (1 - all->rcast.step_y) / 2) / all->rcast.ray_dir.yy;
+	}
+}
+
+void ft_raycasting(int x, t_all *all)
+{
+	all->rcast.cam_x = 2 * x / (float)all->conf.res_x - 1;
+	all->rcast.ray_dir.xx = all->plr.dir.xx + all->plr.plane.xx \
+	* all->rcast.cam_x;
+	all->rcast.ray_dir.yy = all->plr.dir.yy + all->plr.plane.yy \
+	* all->rcast.cam_x;
+	all->rcast.map_x = (int)all->plr.pos.xx;
+	all->rcast.map_y = (int)all->plr.pos.yy;
+	all->rcast.delta_dist.xx = fabs(1 / all->rcast.ray_dir.xx);
+	all->rcast.delta_dist.yy = fabs(1 / all->rcast.ray_dir.yy);
+	ft_init_step(all);
+	ft_dda(all);
+	ft_calc_dist(all);
 }
