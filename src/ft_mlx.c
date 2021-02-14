@@ -44,30 +44,31 @@ void ft_texture_side(t_all *all)
 
 void CHECK(t_all *all)
 {
-	printf("|================================================|\n");
-	printf("|************************************************|\n");
-	printf(" player coord >>>>xx = %.1f<<<<  >>>>yy = %.1f<<<< \n", all->plr.pos.xx, all->plr.pos.yy);
-	printf("|************************************************|\n");
-	printf("|************************************************|\n");
-	printf(" Расстояние до стены = >>%.2f<<\n", all->rcast.dist_wall);
-	printf("|************************************************|\n");
-	printf("|================================================|\n");
+	printf("|================================================|\n\
+|************************************************|\n\
+player coord >>>>xx = %.1f<<<<  >>>>yy = %.1f<<<< \n\
+|************************************************|\n\
+|************************************************|\n\
+Расстояние до стены = >>%.2f<<\n\
+|************************************************|\n\
+|================================================|\n", all->plr.pos.xx, all->plr.pos.yy, all->rcast.dist_wall);
 }
 
 int ft_next_frame(t_all *all)
 {
 	int x;
 
+	ft_check_keys(all);
 	x = 0;
 	while (x < all->conf.res_x)
 	{
 		ft_raycasting(x, all);
 		ft_texture_side(all);
 		ft_drawing(x, all);
-		CHECK(all);
-		mlx_put_image_to_window(all->img.mlx, all->img.win, all->img.img, 0, 0);
 		x++;
 	}
+	CHECK(all);
+	mlx_put_image_to_window(all->img.mlx, all->img.win, all->img.img, 0, 0);
 	return (0);
 }
 
@@ -80,7 +81,9 @@ void ft_mlx_init(t_all *all)
 	all->img.addr = (t_color *)mlx_get_data_addr(all->img.img, \
 	&all->img.bits_per_pixel, &all->img.line_length, &all->img.endian);
 	mlx_loop_hook(all->img.mlx, ft_next_frame, all);
-	mlx_hook(all->img.win, 2, 1L<<0, ft_keyboard, all);
+	mlx_hook(all->img.win, 2, 1L<<0, ft_keyboard_down, all);
+	mlx_hook(all->img.win, 3, 1L<<0, ft_keyboard_up, all);
 	mlx_hook(all->img.win, 17, 0, ft_close, all);
+	mlx_do_key_autorepeatoff(all->img.mlx);
     mlx_loop(all->img.mlx);
 }

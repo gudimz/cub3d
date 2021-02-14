@@ -19,3 +19,20 @@ void	ft_my_pixel_put(t_all *all, int x, int y, t_color color)
 	dst = all->img.addr + y * all->conf.res_x + x;
 	*dst = color;
 }
+
+// t_color	ft_get_pix_textur(t_img *img, float x, float y)
+// {
+// 	img->data [img->width * x + img->height * y * img->width];
+// 	return (img->data [img->width * x + img->height * y * img->width]);
+//}
+
+void	ft_my_pixel_put_wall(t_all *all, int x, int y, t_color color)
+{
+	t_color *dst;
+
+	color.r /= 1 + all->rcast.dist_wall * 0.07;
+	color.g /= 1 + all->rcast.dist_wall * 0.07;
+	color.b /= 1 + all->rcast.dist_wall * 0.07;
+	dst = all->img.addr + y * all->conf.res_x + x;
+	*dst = color;
+}

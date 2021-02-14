@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 00:54:18 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/11 01:10:28 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/14 23:10:13 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void ft_init_player(char *str, size_t xx, size_t yy, t_all *all)
 {
 	all->plr.pos.xx = xx;
 	all->plr.pos.yy = yy;
-	all->plr.move_speed = 0.5;
-	all->plr.rot_speed = 0.2;
+	all->plr.move_speed = 0.05;
+	all->plr.rot_speed = 0.015;
 	if (str[xx] == 'N')
 	{
 		all->plr.dir.yy = -1;

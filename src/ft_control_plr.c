@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void ft_move_camera(t_all *all, char key)
+static void ft_move_camera(t_all *all, char key)
 {
 	float old_dir_x;
 	float old_plane_x;
@@ -31,7 +31,7 @@ void ft_move_camera(t_all *all, char key)
 	all->plr.plane.yy = old_plane_x * sin(rot) + all->plr.plane.yy * cos(rot);
 }
 
-void ft_move_player(t_all *all, char key)
+static void ft_move_player(t_all *all, char key)
 {
 	if (key == 'W')
 	{
@@ -56,21 +56,62 @@ void ft_move_player(t_all *all, char key)
 	}
 }
 
-int ft_keyboard(int keycode, t_all *all)
+void ft_check_keys(t_all *all)
+{
+	if (all->keys.w == 1 && ft_collision(all, all->plr.pos.xx + all->plr.dir.xx \
+	* all->plr.move_speed, all->plr.pos.yy + all->plr.dir.yy \
+	* all->plr.move_speed))
+		ft_move_player(all, 'W');
+	if (all->keys.s == 1 && ft_collision(all, all->plr.pos.xx - all->plr.dir.xx \
+	* all->plr.move_speed, all->plr.pos.yy - all->plr.dir.yy \
+	* all->plr.move_speed))
+		ft_move_player(all, 'S');
+	if (all->keys.a == 1 && ft_collision(all, all->plr.pos.xx - all->plr.plane.xx \
+	* all->plr.move_speed, all->plr.pos.yy - all->plr.plane.yy \
+	* all->plr.move_speed))
+		ft_move_player(all, 'A');
+	if (all->keys.d == 1 && ft_collision(all, all->plr.pos.yy + all->plr.plane.yy \
+	* all->plr.move_speed, all->plr.pos.yy + all->plr.plane.yy \
+	* all->plr.move_speed))
+		ft_move_player(all, 'D');
+	if (all->keys.l == 1)
+		ft_move_camera(all, 'L');
+	if (all->keys.r == 1)
+		ft_move_camera(all, 'R');
+}
+
+int ft_keyboard_down(int keycode, t_all *all)
 {
 	if (keycode == 13)
-		ft_move_player(all, 'W');
+		all->keys.w = 1;
 	if (keycode == 1)
-		ft_move_player(all, 'S');
+		all->keys.s = 1;
 	if (keycode == 0)
-		ft_move_player(all, 'A');
+		all->keys.a = 1;
 	if (keycode == 2)
-		ft_move_player(all, 'D');
+		all->keys.d = 1;
 	if (keycode == 123)
-		ft_move_camera(all, 'L');
+		all->keys.l = 1;
 	if (keycode == 124)
-		ft_move_camera(all, 'R');
+		all->keys.r = 1;
 	if (keycode == 53)
 		ft_close(all);
+	return (0);
+}
+
+int ft_keyboard_up(int keycode, t_all *all)
+{
+	if (keycode == 13)
+		all->keys.w = 0;
+	if (keycode == 1)
+		all->keys.s = 0;
+	if (keycode == 0)
+		all->keys.a = 0;
+	if (keycode == 2)
+		all->keys.d = 0;
+	if (keycode == 123)
+		all->keys.l = 0;
+	if (keycode == 124)
+		all->keys.r = 0;
 	return (0);
 }

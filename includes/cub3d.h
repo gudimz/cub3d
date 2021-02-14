@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/11 00:51:56 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/14 23:02:20 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,16 @@ typedef struct	s_player
 	float rot_speed;
 }				t_player;
 
+typedef struct	s_keys
+{
+	char w;
+	char s;
+	char a;
+	char d;
+	char l;
+	char r;
+}				t_keys;
+
 typedef struct  s_data
 {
 	void		*mlx;
@@ -81,6 +91,23 @@ typedef struct  s_data
 	int			endian;
 }				t_data;
 
+typedef struct  s_img
+{
+	void		*img;
+	t_color		*data;   //adress
+	int			width;
+	int			height;
+}				t_img;
+
+typedef struct  s_textur
+{
+	t_img north;
+	t_img south;
+	t_img east;
+	t_img west;
+	t_img sprite;
+	t_img screen;
+}				t_textur;
 
 typedef struct  s_raycast
 {
@@ -109,6 +136,7 @@ typedef struct	s_all
 	t_data img;
 	t_map map;
 	t_conf conf;
+	t_keys keys;
 }				t_all;
 
 
@@ -125,9 +153,13 @@ void	ft_my_pixel_put(t_all *all, int x, int y, t_color color);
 void ft_mlx_init(t_all *all);
 void ft_drawing(int x, t_all *all);
 void ft_raycasting(int x, t_all *all);
-int ft_keyboard(int keycode, t_all *all);
-void ft_move_player(t_all *all, char key);
-void ft_move_camera(t_all *all, char key);
 int	ft_close(t_all *all);
+void	ft_my_pixel_put_wall(t_all *all, int x, int y, t_color color);
+void ft_check_keys(t_all *all);
+int ft_keyboard_up(int keycode, t_all *all);
+int ft_keyboard_down(int keycode, t_all *all);
+int ft_collision(t_all *all, float xx, float yy);
+
+
 
 #endif
