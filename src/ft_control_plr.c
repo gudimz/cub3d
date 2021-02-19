@@ -70,7 +70,7 @@ void ft_check_keys(t_all *all)
 	* all->plr.move_speed, all->plr.pos.yy - all->plr.plane.yy \
 	* all->plr.move_speed))
 		ft_move_player(all, 'A');
-	if (all->keys.d == 1 && ft_collision(all, all->plr.pos.yy + all->plr.plane.yy \
+	if (all->keys.d == 1 && ft_collision(all, all->plr.pos.xx + all->plr.plane.xx \
 	* all->plr.move_speed, all->plr.pos.yy + all->plr.plane.yy \
 	* all->plr.move_speed))
 		ft_move_player(all, 'D');

@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/14 23:02:20 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/20 00:14:25 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,32 +82,22 @@ typedef struct	s_keys
 
 typedef struct  s_data
 {
-	void		*mlx;
-	void		*win;
 	void		*img;
 	t_color		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
+	int			bits_p_pixel;
+	int			width;
+	int			height;
 }				t_data;
 
 typedef struct  s_img
 {
-	void		*img;
-	t_color		*data;   //adress
-	int			width;
-	int			height;
+	t_data north;
+	t_data south;
+	t_data east;
+	t_data west;
+	t_data sprite;
+	t_data screen;
 }				t_img;
-
-typedef struct  s_textur
-{
-	t_img north;
-	t_img south;
-	t_img east;
-	t_img west;
-	t_img sprite;
-	t_img screen;
-}				t_textur;
 
 typedef struct  s_raycast
 {
@@ -121,10 +111,13 @@ typedef struct  s_raycast
 	int step_y;
 	int side;
 	float dist_wall;
+	float relat_coord;
 }				t_raycast;
 
 typedef struct s_rend
 {
+	void		*mlx;
+	void		*win;
 	int wall_side;
 }				t_rend;
 
@@ -133,7 +126,7 @@ typedef struct	s_all
 	t_rend render;
 	t_raycast rcast;
 	t_player plr;
-	t_data img;
+	t_img img;
 	t_map map;
 	t_conf conf;
 	t_keys keys;

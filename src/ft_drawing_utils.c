@@ -16,7 +16,7 @@ void	ft_my_pixel_put(t_all *all, int x, int y, t_color color)
 {
 	t_color *dst;
 
-	dst = all->img.addr + y * all->conf.res_x + x;
+	dst = all->img.screen.addr + y * all->conf.res_x + x;
 	*dst = color;
 }
 
@@ -33,6 +33,6 @@ void	ft_my_pixel_put_wall(t_all *all, int x, int y, t_color color)
 	color.r /= 1 + all->rcast.dist_wall * 0.07;
 	color.g /= 1 + all->rcast.dist_wall * 0.07;
 	color.b /= 1 + all->rcast.dist_wall * 0.07;
-	dst = all->img.addr + y * all->conf.res_x + x;
+	dst = all->img.screen.addr + y * all->conf.res_x + x;
 	*dst = color;
 }
