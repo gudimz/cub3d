@@ -83,11 +83,11 @@ void ft_init_textur(t_all *all)
 		exit(0);
 	all->img.west.addr = (t_color *)mlx_get_data_addr(all->img.west.img, \
 	&buf, &buf, &buf);
-	//if (!() all->img.sprite.img = mlx_xpm_file_to_image(all->render.mlx, all->conf.sprite, \
-	// &all->img.sprite.width, &all->img.sprite.height)))
-	//	exit(0);
-	// all->img.sprite.addr = (t_color *)mlx_get_data_addr(all->img.sprite.img, \
-	// &all->img.sprite.bits_p_pixel, &all->img.sprite.width, &all->img.sprite.height);
+	if (!(all->img.sprite.img = mlx_xpm_file_to_image(all->render.mlx, all->conf.sprite, \
+	&all->img.sprite.width, &all->img.sprite.height)))
+		exit(0);
+	all->img.sprite.addr = (t_color *)mlx_get_data_addr(all->img.sprite.img, \
+	&buf, &buf, &buf);
 }
 
 void CHECK(t_all *all)
@@ -105,9 +105,11 @@ player coord >>>>xx = %.1f<<<<  >>>>yy = %.1f<<<< \n\
 int ft_next_frame(t_all *all)
 {
 	int x;
+	int y;
 
 	ft_check_keys(all);
 	x = 0;
+	y = 0;
 	while (x < all->conf.res_x)
 	{
 		ft_raycasting(x, all);

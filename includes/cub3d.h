@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/20 00:14:25 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/21 20:36:28 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,14 @@ typedef struct s_rend
 	void		*mlx;
 	void		*win;
 	int wall_side;
+	t_color pix;
 }				t_rend;
+
+typedef struct s_sprite
+{
+	float dist_sprite;
+	int count;
+}				t_sprite;
 
 typedef struct	s_all
 {
@@ -130,6 +137,7 @@ typedef struct	s_all
 	t_map map;
 	t_conf conf;
 	t_keys keys;
+	t_sprite sprite;
 }				t_all;
 
 

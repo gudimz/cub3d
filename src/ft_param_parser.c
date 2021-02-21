@@ -30,14 +30,14 @@ static void ft_resol_parser(char ** str, t_all *all)
 			j++;
 		}
 	}
-	if ((all->conf.res_x = ft_atoi(str[1])) == -1)
+	if ((all->conf.res_x = ft_atoi(str[1])) == -1 || all->conf.res_x > MAX_RES_X)
 		all->conf.res_x = MAX_RES_X;
-	if ((all->conf.res_y = ft_atoi(str[2])) == -1)
+	if ((all->conf.res_y = ft_atoi(str[2])) == -1 || all->conf.res_y > MAX_RES_Y)
 		all->conf.res_y = MAX_RES_Y;
 	// if ((all->conf.res_x = ft_atoi(str[1])) == -1 || \
 	// (all->conf.res_y = ft_atoi(str[2])) == -1 || all->conf.res_x > MAX_RES_X \
 	// || all->conf.res_y > MAX_RES_Y)
-	// 	mlx_get_screen_size(all->img.mlx, &all->conf.res_x, &all->conf.res_y);
+	// 	mlx_get_screen_size(all->render.mlx, &all->conf.res_x, &all->conf.res_y);
 	if (all->conf.res_x <= 120 || all->conf.res_y <= 68)
 	{
 		all->conf.res_x = MIN_RES_X;

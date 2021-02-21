@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 21:30:22 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/20 00:20:28 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/21 19:01:37 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ static void ft_calc_dist(t_all *all)
 
 int ft_collision(t_all *all, float xx, float yy)
 {
-	if (all->map.array[(int)yy * all->map.width + (int)xx] == '1' /*|| \
-	all->map.array[(int)yy * all->map.width + (int)xx] == '2'*/)
+	if (all->map.array[(int)yy * all->map.width + (int)xx] == '1' || \
+	all->map.array[(int)yy * all->map.width + (int)xx] == '2')
 		return (0);
 	return (1);
 }

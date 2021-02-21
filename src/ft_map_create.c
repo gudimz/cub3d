@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 00:54:18 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/14 23:10:13 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/21 18:54:43 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ static char ft_init_map(char *str, size_t xx, size_t yy, t_all *all)
 		ft_init_player(str, xx, yy, all);
 		c = '0';
 	}
+	else if (str[xx] == '2')
+	{
+		c = '2';
+		all->sprite.count += 1;
+	}
 	else
 		c = str[xx];
 	return (c);
@@ -131,8 +136,6 @@ void ft_map_create(t_all *all)
 			all->map.array[yy * all->map.width + xx] = ft_init_map(str, xx, yy, all);
 			xx++;
 		}
-		// write(1, all->map.array + (yy * all->map.width), all->map.width);
-		// write(1, "\n", 1);
 		list = list->next;
 		yy++;
 	}
