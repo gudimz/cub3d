@@ -26,56 +26,63 @@ int	ft_close(t_all *all)
 
 void ft_texture_side(t_all *all)
 {
+	float wall_x;
+	float wall_y;
+
 	if (all->rcast.side == 0)
 	{
+		wall_y = all->plr.pos.yy + all->rcast.dist_wall * all->rcast.ray_dir.yy;
 		if (all->rcast.map_x < all->plr.pos.xx)
 		{
 			all->render.wall_side = 0;
-			all->rcast.relat_coord = all->rcast.side_dist.yy - (int)all->rcast.side_dist.yy;
+			all->rcast.relat_coord = wall_y - (int)wall_y;
 		}
 		else
 		{
 			all->render.wall_side = 1;
-			all->rcast.relat_coord = all->rcast.side_dist.yy - (int)all->rcast.side_dist.yy;
+			all->rcast.relat_coord = 1 - (wall_y - (int)wall_y);
 		}
 	}
 	else if (all->rcast.side == 1)
 	{
+		wall_x = all->plr.pos.xx + all->rcast.dist_wall * all->rcast.ray_dir.xx;
 		if (all->rcast.map_y < all->plr.pos.yy)
 		{
 			all->render.wall_side = 2;
-			all->rcast.relat_coord = all->rcast.side_dist.xx - (int)all->rcast.side_dist.xx;
+			all->rcast.relat_coord = wall_x - (int)wall_x;
 		}
 		else
 		{
 			all->render.wall_side = 3;
-			all->rcast.relat_coord = all->rcast.side_dist.xx - (int)all->rcast.side_dist.xx;
+			all->rcast.relat_coord = 1 - (wall_x - (int)wall_x);
 		}
 	}
 }
 
 void ft_init_textur(t_all *all)
 {
+	int buf;
+
 	if (!(all->img.north.img = mlx_xpm_file_to_image(all->render.mlx, all->conf.north, \
 	&all->img.north.width, &all->img.north.height)))
 		exit (0);
 	all->img.north.addr = (t_color *)mlx_get_data_addr(all->img.north.img, \
-	&all->img.north.bits_p_pixel, &all->img.north.width, &all->img.north.height);
+	&buf, &buf, &buf);
 	if (!(all->img.south.img = mlx_xpm_file_to_image(all->render.mlx, all->conf.south, \
 	&all->img.south.width, &all->img.south.height)))
 		exit(0);
 	all->img.south.addr = (t_color *)mlx_get_data_addr(all->img.south.img, \
-	&all->img.south.bits_p_pixel, &all->img.south.width, &all->img.south.height);
+	&buf, &buf, &buf);
 	if (!(all->img.east.img = mlx_xpm_file_to_image(all->render.mlx, all->conf.east, \
 	&all->img.east.width, &all->img.east.height)))
 		exit(0);
 	all->img.east.addr = (t_color *)mlx_get_data_addr(all->img.east.img, \
-	&all->img.east.bits_p_pixel, &all->img.east.width, &all->img.east.height);
+	&buf, &buf, &buf);
 	if (!(all->img.west.img = mlx_xpm_file_to_image(all->render.mlx, all->conf.west, \
 	&all->img.west.width, &all->img.west.height)))
 		exit(0);
 	all->img.west.addr = (t_color *)mlx_get_data_addr(all->img.west.img, \
-	&all->img.west.bits_p_pixel, &all->img.west.width, &all->img.west.height);
+	&buf, &buf, &buf);
 	//if (!() all->img.sprite.img = mlx_xpm_file_to_image(all->render.mlx, all->conf.sprite, \
 	// &all->img.sprite.width, &all->img.sprite.height)))
 	//	exit(0);
