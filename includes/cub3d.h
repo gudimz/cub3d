@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/21 20:36:28 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/23 19:54:31 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@
 # define MAX_RES_Y 1080
 # define MIN_RES_X 120
 # define MIN_RES_Y 68
+
+typedef struct s_coord
+{
+	float xx;
+	float yy;
+}				t_coord;
+
+typedef struct s_icoord
+{
+	int xx;
+	int yy;
+}				t_icoord;
+
 typedef struct	s_color
 {
 	unsigned char		b;
@@ -41,6 +54,7 @@ typedef struct	s_conf
 	char	*west;
 	char	*east;
 	char	*sprite;
+	t_icoord *ar_sprite;
 	t_color	floor;
 	t_color	ceiling;
 	int flag;
@@ -55,17 +69,11 @@ typedef struct	s_map
 	char	*array;
 }				t_map;
 
-typedef struct s_coordin
-{
-	float xx;
-	float yy;
-}				t_coordin;
-
 typedef struct	s_player
 {
-	t_coordin pos;
-	t_coordin plane;
-	t_coordin dir;
+	t_coord pos;
+	t_coord plane;
+	t_coord dir;
 	float move_speed;
 	float rot_speed;
 }				t_player;
@@ -102,15 +110,13 @@ typedef struct  s_img
 typedef struct  s_raycast
 {
 	float cam_x;
-	t_coordin ray_dir;
+	t_coord ray_dir;
 	int map_x;
 	int map_y;
-	t_coordin delta_dist;
-	t_coordin side_dist;
-	int step_x;
-	int step_y;
+	t_coord delta_dist;
+	t_coord side_dist;
+	t_icoord step;
 	int side;
-	float dist_wall;
 	float relat_coord;
 }				t_raycast;
 
@@ -122,10 +128,25 @@ typedef struct s_rend
 	t_color pix;
 }				t_rend;
 
+typedef struct s_wall
+{
+	float dist;
+	float *array_dist;
+}				t_wall;
+
 typedef struct s_sprite
 {
-	float dist_sprite;
+	float *array_dist;
+	int *order;
+	t_coord *array;
 	int count;
+	t_coord coord;
+	float project;
+	t_coord transf;
+	int screen;
+	int w;
+	int h;
+	t_icoord relat;
 }				t_sprite;
 
 typedef struct	s_all
@@ -138,6 +159,7 @@ typedef struct	s_all
 	t_conf conf;
 	t_keys keys;
 	t_sprite sprite;
+	t_wall wall;
 }				t_all;
 
 
@@ -155,11 +177,16 @@ void ft_mlx_init(t_all *all);
 void ft_drawing(int x, t_all *all);
 void ft_raycasting(int x, t_all *all);
 int	ft_close(t_all *all);
-void	ft_my_pixel_put_wall(t_all *all, int x, int y, t_color color);
+void	ft_my_pixel_put_wall(t_all *all, int x, int y);
+void	ft_my_pixel_put_sprite(t_all *all, int x, int y);
 void ft_check_keys(t_all *all);
 int ft_keyboard_up(int keycode, t_all *all);
 int ft_keyboard_down(int keycode, t_all *all);
 int ft_collision(t_all *all, float xx, float yy);
+int	ft_close(t_all *all);
+void ft_sprites(t_all *all);
+void ft_get_pix_textur(t_all *all, float x, float y);
+
 
 
 

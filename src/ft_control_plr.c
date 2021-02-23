@@ -58,20 +58,20 @@ static void ft_move_player(t_all *all, char key)
 
 void ft_check_keys(t_all *all)
 {
-	if (all->keys.w == 1 && ft_collision(all, all->plr.pos.xx + all->plr.dir.xx \
-	* all->plr.move_speed, all->plr.pos.yy + all->plr.dir.yy \
+	if (all->keys.w == 1 && ft_collision(all, all->plr.pos.xx + 4 * all->plr.dir.xx \
+	* all->plr.move_speed, all->plr.pos.yy + 4 * all->plr.dir.yy \
 	* all->plr.move_speed))
 		ft_move_player(all, 'W');
-	if (all->keys.s == 1 && ft_collision(all, all->plr.pos.xx - all->plr.dir.xx \
-	* all->plr.move_speed, all->plr.pos.yy - all->plr.dir.yy \
+	if (all->keys.s == 1 && ft_collision(all, all->plr.pos.xx - 4 * all->plr.dir.xx \
+	* all->plr.move_speed, all->plr.pos.yy - 4 * all->plr.dir.yy \
 	* all->plr.move_speed))
 		ft_move_player(all, 'S');
-	if (all->keys.a == 1 && ft_collision(all, all->plr.pos.xx - all->plr.plane.xx \
-	* all->plr.move_speed, all->plr.pos.yy - all->plr.plane.yy \
+	if (all->keys.a == 1 && ft_collision(all, all->plr.pos.xx - 4 * all->plr.plane.xx \
+	* all->plr.move_speed, all->plr.pos.yy - 4 * all->plr.plane.yy \
 	* all->plr.move_speed))
 		ft_move_player(all, 'A');
-	if (all->keys.d == 1 && ft_collision(all, all->plr.pos.xx + all->plr.plane.xx \
-	* all->plr.move_speed, all->plr.pos.yy + all->plr.plane.yy \
+	if (all->keys.d == 1 && ft_collision(all, all->plr.pos.xx + 4 * all->plr.plane.xx \
+	* all->plr.move_speed, all->plr.pos.yy + 4 * all->plr.plane.yy \
 	* all->plr.move_speed))
 		ft_move_player(all, 'D');
 	if (all->keys.l == 1)

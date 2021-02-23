@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 00:54:18 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/21 18:54:43 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/22 16:55:08 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ static char ft_init_map(char *str, size_t xx, size_t yy, t_all *all)
 	else if (str[xx] == '2')
 	{
 		c = '2';
+		all->conf.ar_sprite[all->sprite.count ].xx = xx;
+		all->conf.ar_sprite[all->sprite.count ].yy = yy;
 		all->sprite.count += 1;
 	}
 	else
@@ -126,6 +128,9 @@ void ft_map_create(t_all *all)
 	list = all->map.begin;
 	yy = 0;
 	if (!(all->map.array = ft_calloc(all->map.height, all->map.width)))
+		ft_print_error("Failed to allocate memory", 25);
+	if (!(all->conf.ar_sprite = malloc(sizeof(t_icoord) * \
+	(all->map.height * all->map.width))))
 		ft_print_error("Failed to allocate memory", 25);
 	while (yy < all->map.height && list)
 	{

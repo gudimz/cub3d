@@ -20,19 +20,30 @@ void	ft_my_pixel_put(t_all *all, int x, int y, t_color color)
 	*dst = color;
 }
 
-// t_color	ft_get_pix_textur(t_img *img, float x, float y)
-// {
-// 	img->data [img->width * x + img->height * y * img->width];
-// 	return (img->data [img->width * x + img->height * y * img->width]);
-//}
-
-void	ft_my_pixel_put_wall(t_all *all, int x, int y, t_color color)
+void	ft_my_pixel_put_wall(t_all *all, int x, int y)
 {
 	t_color *dst;
 
-	color.r /= 1 + all->rcast.dist_wall * 0.07;
-	color.g /= 1 + all->rcast.dist_wall * 0.07;
-	color.b /= 1 + all->rcast.dist_wall * 0.07;
+	all->render.pix.r /= 1 + all->wall.dist * 0.07;
+	all->render.pix.g /= 1 + all->wall.dist * 0.07;
+	all->render.pix.b /= 1 + all->wall.dist * 0.07;
 	dst = all->img.screen.addr + y * all->conf.res_x + x;
-	*dst = color;
+	*dst = all->render.pix;
+}
+
+int	ft_check_black(t_all *all)
+{
+	if (all->render.pix.r == 0 && all->render.pix.g == 0 && all->render.pix.b == 0)
+		return (0);
+	return (1);
+}
+
+void	ft_my_pixel_put_sprite(t_all *all, int x, int y)
+{
+	t_color *dst;
+	if (ft_check_black(all))
+	{
+		dst = all->img.screen.addr + y * all->conf.res_x + x;
+		*dst = all->render.pix;
+	}
 }

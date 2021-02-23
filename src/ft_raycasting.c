@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 21:30:22 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/21 19:01:37 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/22 16:35:11 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ static void ft_init_step(t_all *all)
 {
 	if (all->rcast.ray_dir.xx < 0)
 	{
-		all->rcast.step_x = -1;
+		all->rcast.step.xx = -1;
 		all->rcast.side_dist.xx = (all->plr.pos.xx - all->rcast.map_x) \
 		* all->rcast.delta_dist.xx;
 	}
 	else
 	{
-		all->rcast.step_x = 1;
+		all->rcast.step.xx = 1;
 		all->rcast.side_dist.xx = (all->rcast.map_x + 1.0 - all->plr.pos.xx) \
 		* all->rcast.delta_dist.xx;
 	}
 	if (all->rcast.ray_dir.yy < 0)
 	{
-		all->rcast.step_y = -1;
+		all->rcast.step.yy = -1;
 		all->rcast.side_dist.yy = (all->plr.pos.yy - all->rcast.map_y) \
 		* all->rcast.delta_dist.yy;
 	}
 	else
 	{
-		all->rcast.step_y = 1;
+		all->rcast.step.yy = 1;
 		all->rcast.side_dist.yy = (all->rcast.map_y + 1.0 - all->plr.pos.yy) \
 		* all->rcast.delta_dist.yy;
 	}
@@ -50,13 +50,13 @@ static void ft_dda(t_all *all)
 		if (all->rcast.side_dist.xx < all->rcast.side_dist.yy)
 		{
 			all->rcast.side_dist.xx += all->rcast.delta_dist.xx;
-			all->rcast.map_x += all->rcast.step_x;
+			all->rcast.map_x += all->rcast.step.xx;
 			all->rcast.side = 0;
 		}
 		else
 		{
 			all->rcast.side_dist.yy += all->rcast.delta_dist.yy;
-			all->rcast.map_y += all->rcast.step_y;
+			all->rcast.map_y += all->rcast.step.yy;
 			all->rcast.side = 1;
 		}
 		if (all->map.array[all->rcast.map_y * all->map.width \
@@ -69,13 +69,13 @@ static void ft_calc_dist(t_all *all)
 {
 	if (all->rcast.side == 0)
 	{
-		all->rcast.dist_wall = (all->rcast.map_x - all->plr.pos.xx \
-		+ (1 - all->rcast.step_x) / 2) / all->rcast.ray_dir.xx;
+		all->wall.dist = (all->rcast.map_x - all->plr.pos.xx \
+		+ (1 - all->rcast.step.xx) / 2) / all->rcast.ray_dir.xx;
 	}
 	else
 	{
-		all->rcast.dist_wall = ((all->rcast.map_y - all->plr.pos.yy \
-		+ (1 - all->rcast.step_y) / 2) / all->rcast.ray_dir.yy);
+		all->wall.dist = ((all->rcast.map_y - all->plr.pos.yy \
+		+ (1 - all->rcast.step.yy) / 2) / all->rcast.ray_dir.yy);
 	}
 }
 
