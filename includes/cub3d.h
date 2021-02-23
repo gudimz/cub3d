@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/23 19:54:31 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/23 22:31:28 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,9 +183,8 @@ void ft_check_keys(t_all *all);
 int ft_keyboard_up(int keycode, t_all *all);
 int ft_keyboard_down(int keycode, t_all *all);
 int ft_collision(t_all *all, float xx, float yy);
-int	ft_close(t_all *all);
 void ft_sprites(t_all *all);
-void ft_get_pix_textur(t_all *all, float x, float y);
+void ft_draw_sprites(t_all *all, int start_y, int end_y, int start_x, int end_x);
 
 
 

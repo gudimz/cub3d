@@ -31,7 +31,7 @@ void	ft_my_pixel_put_wall(t_all *all, int x, int y)
 	*dst = all->render.pix;
 }
 
-int	ft_check_black(t_all *all)
+static int	ft_check_black(t_all *all)
 {
 	if (all->render.pix.r == 0 && all->render.pix.g == 0 && all->render.pix.b == 0)
 		return (0);

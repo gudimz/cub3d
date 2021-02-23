@@ -71,17 +71,18 @@ void ft_init_textur(t_all *all)
 		ft_print_error("Invalid path for texture west", 29);
 	all->img.west.addr = (t_color *)mlx_get_data_addr(all->img.west.img, \
 	&buf, &buf, &buf);
+}
+
+void ft_init_sprites(t_all *all)
+{
+	int buf;
+	int i;
+
 	if (!(all->img.sprite.img = mlx_xpm_file_to_image(all->render.mlx, all->conf.sprite, \
 	&all->img.sprite.width, &all->img.sprite.height)))
 		ft_print_error("Invalid path for texture sprite", 31);
 	all->img.sprite.addr = (t_color *)mlx_get_data_addr(all->img.sprite.img, \
 	&buf, &buf, &buf);
-}
-
-void ft_init_sprites(t_all *all)
-{
-	int i;
-
 	i = 0;
 	if (!(all->sprite.array_dist = malloc(sizeof(float) * all->sprite.count)))
 		ft_print_error("Failed to allocate memory", 25);

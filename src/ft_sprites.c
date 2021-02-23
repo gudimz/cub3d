@@ -6,13 +6,13 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 17:53:14 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/23 22:24:36 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/23 22:31:06 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void ft_sort_sprites(t_all *all)
+static void ft_sort_sprites(t_all *all)
 {
 	int i;
 	int j;
@@ -40,37 +40,7 @@ void ft_sort_sprites(t_all *all)
 	}
 }
 
-void ft_draw_sprites(t_all *all, int start_y, int end_y, int start_x, int end_x)
-{
-	int d;
-	int i;
-	int j;
-
-	i = start_x;
-	while (i < end_x)
-	{
-		j = start_y;
-		all->sprite.relat.xx = (int)(256 * (i- (-all->sprite.w / 2 \
-		+ all->sprite.screen)) * all->img.sprite.width / all->sprite.w) / 256;
-		if (all->sprite.transf.yy > 0 && i > 0 && i < all->conf.res_x \
-		&& all->sprite.transf.yy < all->wall.array_dist[i])
-		{
-			while (j < end_y)
-			{
-				d = j * 256 - all->conf.res_y * 128 + all->sprite.h * 128;
-				all->sprite.relat.yy = (int)((d * all->img.sprite.height) \
-				/ all->sprite.h) / 256;
-				all->render.pix = all->img.sprite.addr[all->sprite.relat.xx \
-				+ all->sprite.relat.yy * all->img.sprite.width];
-				ft_my_pixel_put_sprite(all, i, j);
-				j++;
-			}
-		}
-		i++;
-	}
-}
-
-void ft_calc_sprites(t_all *all)
+static void ft_calc_sprites(t_all *all)
 {
 	int start_x;
 	int end_x;
@@ -92,7 +62,7 @@ void ft_calc_sprites(t_all *all)
 	ft_draw_sprites(all, start_y, end_y, start_x, end_x);
 }
 
-void ft_raycast_sprites(t_all *all)
+static void ft_raycast_sprites(t_all *all)
 {
 	int i;
 
