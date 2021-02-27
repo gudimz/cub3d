@@ -6,18 +6,18 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 17:53:14 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/23 22:31:06 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/27 23:23:53 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void ft_sort_sprites(t_all *all)
+static void	ft_sort_sprites(t_all *all)
 {
-	int i;
-	int j;
-	int tmp_i;
-	float tmp_f;
+	int		i;
+	int		j;
+	int		tmp_i;
+	float	tmp_f;
 
 	i = 0;
 	while (i < all->sprite.count)
@@ -40,29 +40,24 @@ static void ft_sort_sprites(t_all *all)
 	}
 }
 
-static void ft_calc_sprites(t_all *all)
+static void	ft_calc_sprites(t_all *all)
 {
-	int start_x;
-	int end_x;
-	int start_y;
-	int end_y;
-
-	start_y = (-all->sprite.h / 2 + all->conf.res_y / 2);
-	if (start_y < 0)
-		start_y = 0;
-	end_y = (all->sprite.h / 2 + all->conf.res_y / 2);
-	if (end_y > all->conf.res_y)
-		end_y = all->conf.res_y - 1;
-	start_x = -all->sprite.w / 2 + all->sprite.screen;
-	if (start_x < 0)
-		start_x = 0;
-	end_x = all->sprite.w / 2 + all->sprite.screen;
-	if (end_x > all->conf.res_x)
-		end_x = all->conf.res_x - 1;
-	ft_draw_sprites(all, start_y, end_y, start_x, end_x);
+	all->render.sp_start_y = (-all->sprite.h / 2 + all->conf.res_y / 2);
+	if (all->render.sp_start_y < 0)
+		all->render.sp_start_y = 0;
+	all->render.sp_end_y = (all->sprite.h / 2 + all->conf.res_y / 2);
+	if (all->render.sp_end_y > all->conf.res_y)
+		all->render.sp_end_y = all->conf.res_y - 1;
+	all->render.sp_start_x = -all->sprite.w / 2 + all->sprite.screen;
+	if (all->render.sp_start_x < 0)
+		all->render.sp_start_x = 0;
+	all->render.sp_end_x = all->sprite.w / 2 + all->sprite.screen;
+	if (all->render.sp_end_x > all->conf.res_x)
+		all->render.sp_end_x = all->conf.res_x - 1;
+	ft_draw_sprites(all);
 }
 
-static void ft_raycast_sprites(t_all *all)
+static void	ft_raycast_sprites(t_all *all)
 {
 	int i;
 
@@ -81,14 +76,40 @@ static void ft_raycast_sprites(t_all *all)
 		all->sprite.coord.xx + all->plr.plane.xx * all->sprite.coord.yy);
 		all->sprite.screen = (int)((all->conf.res_x / 2) * (1 + \
 		all->sprite.transf.xx / all->sprite.transf.yy));
-		all->sprite.h = abs((int)(all->conf.res_y / all->sprite.transf.yy)) * 1.35;
+		all->sprite.h = abs((int)(all->conf.res_y / all->sprite.transf.yy)) \
+		* 1.35;
 		all->sprite.w = abs((int)(all->conf.res_y / all->sprite.transf.yy));
 		ft_calc_sprites(all);
 		i++;
 	}
 }
 
-void ft_sprites(t_all *all)
+void		ft_init_sprites(t_all *all)
+{
+	int buf;
+	int i;
+
+	if (!(all->img.sprite.img = mlx_xpm_file_to_image(all->render.mlx, \
+	all->conf.sprite, &all->img.sprite.width, &all->img.sprite.height)))
+		ft_print_error("Invalid path for texture sprite", 31);
+	all->img.sprite.addr = (t_color *)mlx_get_data_addr(all->img.sprite.img, \
+	&buf, &buf, &buf);
+	i = 0;
+	if (!(all->sprite.array_dist = malloc(sizeof(float) * all->sprite.count)))
+		ft_print_error("Failed to allocate memory", 25);
+	if (!(all->sprite.order = malloc(sizeof(int) * all->sprite.count)))
+		ft_print_error("Failed to allocate memory", 25);
+	if (!(all->sprite.array = malloc(sizeof(t_coord) * all->sprite.count)))
+		ft_print_error("Failed to allocate memory", 25);
+	while (i < all->sprite.count)
+	{
+		all->sprite.array[i].xx = all->conf.ar_sprite[i].xx + 0.5;
+		all->sprite.array[i].yy = all->conf.ar_sprite[i].yy + 0.5;
+		i++;
+	}
+}
+
+void		ft_sprites(t_all *all)
 {
 	int i;
 
@@ -96,7 +117,8 @@ void ft_sprites(t_all *all)
 	while (i < all->sprite.count)
 	{
 		all->sprite.order[i] = i;
-		all->sprite.array_dist[i] = powf((all->plr.pos.xx - all->sprite.array[i].xx), 2) \
+		all->sprite.array_dist[i] = powf((all->plr.pos.xx - \
+		all->sprite.array[i].xx), 2) \
 		+ powf((all->plr.pos.yy - all->sprite.array[i].yy), 2);
 		i++;
 	}

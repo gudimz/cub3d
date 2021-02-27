@@ -6,13 +6,13 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 16:21:12 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/08 22:09:04 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/27 22:03:30 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int ft_check_rgb_range(char *rgb)
+int		ft_check_rgb_range(char *rgb)
 {
 	int c;
 
@@ -22,14 +22,14 @@ int ft_check_rgb_range(char *rgb)
 	return (c);
 }
 
-int ft_check_duplicate(char *path)
+int		ft_check_duplicate(char *path)
 {
 	if (path)
 		ft_print_error("Texture parameter is duplicated", 31);
 	return (1);
 }
 
-char ft_map_char(t_all *all, size_t xx, size_t yy)
+char	ft_map_char(t_all *all, size_t xx, size_t yy)
 {
 	if ((xx < all->map.width && xx >= 0) && (yy < all->map.height && yy >= 0))
 	{

@@ -6,13 +6,13 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 21:30:22 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/22 16:35:11 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/27 23:22:20 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void ft_init_step(t_all *all)
+static void	ft_init_step(t_all *all)
 {
 	if (all->rcast.ray_dir.xx < 0)
 	{
@@ -40,7 +40,7 @@ static void ft_init_step(t_all *all)
 	}
 }
 
-static void ft_dda(t_all *all)
+static void	ft_dda(t_all *all)
 {
 	int hit;
 
@@ -65,7 +65,7 @@ static void ft_dda(t_all *all)
 	}
 }
 
-static void ft_calc_dist(t_all *all)
+static void	ft_calc_dist(t_all *all)
 {
 	if (all->rcast.side == 0)
 	{
@@ -79,7 +79,7 @@ static void ft_calc_dist(t_all *all)
 	}
 }
 
-int ft_collision(t_all *all, float xx, float yy)
+int			ft_collision(t_all *all, float xx, float yy)
 {
 	if (all->map.array[(int)yy * all->map.width + (int)xx] == '1' || \
 	all->map.array[(int)yy * all->map.width + (int)xx] == '2')
@@ -87,7 +87,7 @@ int ft_collision(t_all *all, float xx, float yy)
 	return (1);
 }
 
-void ft_raycasting(int x, t_all *all)
+void		ft_raycasting(int x, t_all *all)
 {
 	all->rcast.cam_x = 2 * x / (float)all->conf.res_x - 1;
 	all->rcast.ray_dir.xx = all->plr.dir.xx + all->plr.plane.xx \

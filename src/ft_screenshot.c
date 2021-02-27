@@ -6,16 +6,16 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 23:50:24 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/27 02:52:43 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/27 23:23:01 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void ft_header(int fd, t_all *all)
+void	ft_header(int fd, t_all *all)
 {
-	unsigned char header[54];
-	int file_size;
+	unsigned char	header[54];
+	int				file_size;
 
 	ft_bzero(header, 54);
 	file_size = 54 + 4 * all->conf.res_x * all->conf.res_y;
@@ -40,10 +40,10 @@ void ft_header(int fd, t_all *all)
 	write(fd, header, 54);
 }
 
-void ft_data_header(int fd, t_all *all)
+void	ft_data_header(int fd, t_all *all)
 {
-	int x;
-	int y;
+	int		x;
+	int		y;
 	t_color pix;
 
 	y = all->conf.res_y;
@@ -52,7 +52,7 @@ void ft_data_header(int fd, t_all *all)
 		x = 0;
 		while (x < all->conf.res_x)
 		{
-			pix = all->img.screen.addr[x + y * all->conf.res_x];
+			pix = all->img.screen.addr[x + y * (all->conf.res_x)];
 			write(fd, &pix, 4);
 			x++;
 		}
@@ -60,7 +60,7 @@ void ft_data_header(int fd, t_all *all)
 	}
 }
 
-void ft_screenshot(t_all *all)
+void	ft_screenshot(t_all *all)
 {
 	int fd;
 

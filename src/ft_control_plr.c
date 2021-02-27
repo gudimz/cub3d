@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_control_plr.c                                    :+:      :+:    :+:   */
+/*   ft_control_plr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 00:01:41 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/11 00:15:09 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/27 21:52:59 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void ft_move_camera(t_all *all, char key)
+static void	ft_move_camera(t_all *all, char key)
 {
 	float old_dir_x;
 	float old_plane_x;
@@ -31,7 +31,7 @@ static void ft_move_camera(t_all *all, char key)
 	all->plr.plane.yy = old_plane_x * sin(rot) + all->plr.plane.yy * cos(rot);
 }
 
-static void ft_move_player(t_all *all, char key)
+static void	ft_move_player(t_all *all, char key)
 {
 	if (key == 'W')
 	{
@@ -42,7 +42,6 @@ static void ft_move_player(t_all *all, char key)
 	{
 		all->plr.pos.xx -= all->plr.dir.xx * all->plr.move_speed;
 		all->plr.pos.yy -= all->plr.dir.yy * all->plr.move_speed;
-
 	}
 	if (key == 'A')
 	{
@@ -56,23 +55,23 @@ static void ft_move_player(t_all *all, char key)
 	}
 }
 
-void ft_check_keys(t_all *all)
+void		ft_check_keys(t_all *all)
 {
-	if (all->keys.w == 1 && ft_collision(all, all->plr.pos.xx + 4 * all->plr.dir.xx \
-	* all->plr.move_speed, all->plr.pos.yy + 4 * all->plr.dir.yy \
-	* all->plr.move_speed))
+	if (all->keys.w == 1 && ft_collision(all, all->plr.pos.xx + \
+	4 * all->plr.dir.xx * all->plr.move_speed, all->plr.pos.yy + \
+	4 * all->plr.dir.yy * all->plr.move_speed))
 		ft_move_player(all, 'W');
-	if (all->keys.s == 1 && ft_collision(all, all->plr.pos.xx - 4 * all->plr.dir.xx \
-	* all->plr.move_speed, all->plr.pos.yy - 4 * all->plr.dir.yy \
-	* all->plr.move_speed))
+	if (all->keys.s == 1 && ft_collision(all, all->plr.pos.xx - \
+	4 * all->plr.dir.xx * all->plr.move_speed, all->plr.pos.yy - \
+	4 * all->plr.dir.yy * all->plr.move_speed))
 		ft_move_player(all, 'S');
-	if (all->keys.a == 1 && ft_collision(all, all->plr.pos.xx - 4 * all->plr.plane.xx \
-	* all->plr.move_speed, all->plr.pos.yy - 4 * all->plr.plane.yy \
-	* all->plr.move_speed))
+	if (all->keys.a == 1 && ft_collision(all, all->plr.pos.xx - \
+	4 * all->plr.plane.xx * all->plr.move_speed, all->plr.pos.yy - \
+	4 * all->plr.plane.yy * all->plr.move_speed))
 		ft_move_player(all, 'A');
-	if (all->keys.d == 1 && ft_collision(all, all->plr.pos.xx + 4 * all->plr.plane.xx \
-	* all->plr.move_speed, all->plr.pos.yy + 4 * all->plr.plane.yy \
-	* all->plr.move_speed))
+	if (all->keys.d == 1 && ft_collision(all, all->plr.pos.xx + \
+	4 * all->plr.plane.xx * all->plr.move_speed, all->plr.pos.yy + \
+	4 * all->plr.plane.yy * all->plr.move_speed))
 		ft_move_player(all, 'D');
 	if (all->keys.l == 1)
 		ft_move_camera(all, 'L');
@@ -80,7 +79,7 @@ void ft_check_keys(t_all *all)
 		ft_move_camera(all, 'R');
 }
 
-int ft_keyboard_down(int keycode, t_all *all)
+int			ft_keyboard_down(int keycode, t_all *all)
 {
 	if (keycode == 13)
 		all->keys.w = 1;
@@ -99,7 +98,7 @@ int ft_keyboard_down(int keycode, t_all *all)
 	return (0);
 }
 
-int ft_keyboard_up(int keycode, t_all *all)
+int			ft_keyboard_up(int keycode, t_all *all)
 {
 	if (keycode == 13)
 		all->keys.w = 0;
