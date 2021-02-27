@@ -130,6 +130,8 @@ int ft_next_frame(t_all *all)
 	}
 	ft_sprites(all);
 	CHECK(all);
+	if (all->flag_bmp)
+		ft_screenshot(all);
 	mlx_put_image_to_window(all->render.mlx, all->render.win, all->img.screen.img, 0, 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/23 22:31:28 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/27 01:10:33 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ typedef struct s_sprite
 
 typedef struct	s_all
 {
+	int flag_bmp;
 	t_rend render;
 	t_raycast rcast;
 	t_player plr;
@@ -185,6 +186,7 @@ int ft_keyboard_down(int keycode, t_all *all);
 int ft_collision(t_all *all, float xx, float yy);
 void ft_sprites(t_all *all);
 void ft_draw_sprites(t_all *all, int start_y, int end_y, int start_x, int end_x);
+void ft_screenshot(t_all *all);
 
 
 

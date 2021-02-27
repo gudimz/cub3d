@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:56:26 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/22 17:21:41 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/25 23:28:23 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,6 @@ int	ft_close(t_all *all)
 	write(2, "  \\____|\\__,_|_| |_| |_|\\___|  \\___/  \\_/ \\___|_|\n", 50);
 	exit(0);
 	return (0);
-}
-
-void ft_init_struct(t_all *all)
-{
-	ft_bzero(all, sizeof(t_all));
-	all->conf.res_x = -2;
-	all->conf.res_y = -2;
-	all->conf.flag = 1;
-	all->conf.floor.flag = 1;
-	all->conf.ceiling.flag = 1;
 }
 
 int ft_check_struct(t_all *all)

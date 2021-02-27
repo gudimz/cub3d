@@ -6,11 +6,21 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:56:54 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/22 14:51:27 by agigi            ###   ########.fr       */
+/*   Updated: 2021/02/26 00:50:18 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void ft_init_struct(t_all *all)
+{
+	ft_bzero(all, sizeof(t_all));
+	all->conf.res_x = -2;
+	all->conf.res_y = -2;
+	all->conf.flag = 1;
+	all->conf.floor.flag = 1;
+	all->conf.ceiling.flag = 1;
+}
 
 static int ft_valid_arguments(char *arg, int flag)
 {
@@ -52,26 +62,16 @@ int main(int argc, char **argv)
 		return (ft_print_error("Could not open file", 19));
 	if (argc < 2 || argc > 3)
 		ft_print_error("Wrong numbers of arguments", 26);
-	else if (argc == 2 && ft_valid_arguments(argv[1], 1))
+	if (argc == 3 && ft_valid_arguments(argv[1], 1))
+		all.flag_bmp = 1;
+	while (all.conf.flag)
 	{
-		while (all.conf.flag)
-		{
-			if ((all.conf.flag = get_next_line(fd, &line)) == -1)
-				ft_print_error("Could not read file", 19);
-			ft_param_parser(line, &all);
-			free(line);
-		}
-		ft_map_create(&all);
-		ft_mlx_init(&all);
+		if ((all.conf.flag = get_next_line(fd, &line)) == -1)
+			ft_print_error("Could not read file", 19);
+		ft_param_parser(line, &all);
+		free(line);
 	}
-	/*
-	else if (argc == 3 && ft_valid_arguments(argv[1], 1))
-	{
-		if (ft_valid_arguments(argv[2], 0))
-		{
-			скрипт скриншота
-		}
-	}
-	*/
+	ft_map_create(&all);
+	ft_mlx_init(&all);
 	return (0);
 }

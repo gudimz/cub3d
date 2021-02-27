@@ -19,13 +19,13 @@ void ft_get_pix_textur(t_all *all, float x, float y)
 
 	if (all->render.wall_side == 0)
 	{
-		xx = all->img.west.width * x;
+		xx = all->img.west.width * (-x);
 		yy = all->img.west.width * y;
 		all->render.pix = all->img.west.addr[xx + yy * all->img.west.width];
 	}
 	else if (all->render.wall_side == 1)
 	{
-		xx = all->img.east.width * x;
+		xx = all->img.east.width * (-x);
 		yy = all->img.east.width * y;
 		all->render.pix = all->img.east.addr[xx + yy * all->img.east.width];
 	}
