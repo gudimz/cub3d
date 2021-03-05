@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 00:54:18 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/27 22:52:39 by agigi            ###   ########.fr       */
+/*   Updated: 2021/03/06 00:34:18 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	ft_init_player(char *str, size_t xx, size_t yy, t_all *all)
 {
 	all->plr.pos.xx = xx;
 	all->plr.pos.yy = yy;
-	all->plr.move_speed = 0.04;
-	all->plr.rot_speed = 0.013;
+	all->plr.move_speed = 0.05;
+	all->plr.rot_speed = 0.014;
 	if (str[xx] == 'N')
 	{
 		all->plr.dir.yy = -1;
@@ -67,8 +67,8 @@ static int	ft_valid_map(t_all *all)
 	size_t xx;
 
 	if (all->conf.count == 0 || all->conf.count > 1)
-		ft_print_error("Incorrect value of the starting position \
-						of the player", 54);
+		ft_print_error(all, "Incorrect value of the starting position \
+of the player", 54);
 	yy = 0;
 	while (yy < all->map.height)
 	{
@@ -81,7 +81,7 @@ static int	ft_valid_map(t_all *all)
 				(ft_map_char(all, xx + 1, yy) <= 0) || \
 				(ft_map_char(all, xx, yy + 1) <= 0) || \
 				(ft_map_char(all, xx - 1, yy) <= 0))
-					ft_print_error("Incorrect map values ", 21);
+					ft_print_error(all, "Incorrect map values ", 21);
 			}
 			xx++;
 		}
@@ -102,17 +102,17 @@ void		ft_map_parser(char *line, t_all *all)
 	while (line[i])
 	{
 		if (!ft_strchr("012WENS ", line[i++]))
-			ft_print_error("Incorrect map values ", 21);
+			ft_print_error(all, "Incorrect map values ", 21);
 	}
 	all->map.height += 1;
 	if (all->map.width < len)
 		all->map.width = len;
 	if (!(tmp = ft_strdup(line)))
-		ft_print_error("Failed to allocate memory", 25);
+		ft_print_error(all, "Failed to allocate memory", 25);
 	if (!(new = ft_lstnew(tmp)))
 	{
 		free(tmp);
-		ft_print_error("Failed to allocate memory", 25);
+		ft_print_error(all, "Failed to allocate memory", 25);
 	}
 	ft_lstadd_back(&(all->map.begin), new);
 }
@@ -127,10 +127,10 @@ void		ft_map_create(t_all *all)
 	list = all->map.begin;
 	yy = 0;
 	if (!(all->map.array = ft_calloc(all->map.height, all->map.width)))
-		ft_print_error("Failed to allocate memory", 25);
+		ft_print_error(all, "Failed to allocate memory", 25);
 	if (!(all->conf.ar_sprite = malloc(sizeof(t_icoord) * \
 	(all->map.height * all->map.width))))
-		ft_print_error("Failed to allocate memory", 25);
+		ft_print_error(all, "Failed to allocate memory", 25);
 	while (yy < all->map.height && list)
 	{
 		xx = 0;

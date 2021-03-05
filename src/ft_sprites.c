@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 17:53:14 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/27 23:23:53 by agigi            ###   ########.fr       */
+/*   Updated: 2021/03/06 00:47:34 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,20 @@ static void	ft_raycast_sprites(t_all *all)
 
 void		ft_init_sprites(t_all *all)
 {
-	int buf;
 	int i;
 
 	if (!(all->img.sprite.img = mlx_xpm_file_to_image(all->render.mlx, \
 	all->conf.sprite, &all->img.sprite.width, &all->img.sprite.height)))
-		ft_print_error("Invalid path for texture sprite", 31);
+		ft_print_error(all, "Invalid path for texture sprite", 31);
 	all->img.sprite.addr = (t_color *)mlx_get_data_addr(all->img.sprite.img, \
-	&buf, &buf, &buf);
+	&all->img.sprite.bits_pix, &all->img.sprite.line_len, &all->img.sprite.endian);
 	i = 0;
 	if (!(all->sprite.array_dist = malloc(sizeof(float) * all->sprite.count)))
-		ft_print_error("Failed to allocate memory", 25);
+		ft_print_error(all, "Failed to allocate memory", 25);
 	if (!(all->sprite.order = malloc(sizeof(int) * all->sprite.count)))
-		ft_print_error("Failed to allocate memory", 25);
+		ft_print_error(all, "Failed to allocate memory", 25);
 	if (!(all->sprite.array = malloc(sizeof(t_coord) * all->sprite.count)))
-		ft_print_error("Failed to allocate memory", 25);
+		ft_print_error(all, "Failed to allocate memory", 25);
 	while (i < all->sprite.count)
 	{
 		all->sprite.array[i].xx = all->conf.ar_sprite[i].xx + 0.5;

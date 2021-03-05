@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 23:50:24 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/27 23:23:01 by agigi            ###   ########.fr       */
+/*   Updated: 2021/03/06 00:48:02 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,13 @@ void	ft_header(int fd, t_all *all)
 	file_size = 54 + 4 * all->conf.res_x * all->conf.res_y;
 	header[0] = 'B';
 	header[1] = 'M';
-	header[2] = file_size;
-	header[3] = file_size >> 8;
-	header[4] = file_size >> 16;
-	header[5] = file_size >> 24;
+	ft_memcpy(header + 2, &file_size, sizeof(int));
 	header[10] = 54;
 	header[14] = 40;
-	header[18] = all->conf.res_x;
-	header[19] = all->conf.res_x >> 8;
-	header[20] = all->conf.res_x >> 16;
-	header[21] = all->conf.res_x >> 24;
-	header[22] = all->conf.res_y;
-	header[23] = all->conf.res_y >> 8;
-	header[24] = all->conf.res_y >> 16;
-	header[25] = all->conf.res_y >> 24;
+	ft_memcpy(header + 18, &all->conf.res_x, sizeof(int));
+	ft_memcpy(header + 22, &all->conf.res_y, sizeof(int));
 	header[26] = 1;
-	header[28] = all->img.screen.bits_p_pixel;
+	header[28] = all->img.screen.bits_pix;
 	write(fd, header, 54);
 }
 
@@ -44,20 +35,11 @@ void	ft_data_header(int fd, t_all *all)
 {
 	int		x;
 	int		y;
-	t_color pix;
 
 	y = all->conf.res_y;
-	while (y > 0)
-	{
-		x = 0;
-		while (x < all->conf.res_x)
-		{
-			pix = all->img.screen.addr[x + y * (all->conf.res_x)];
-			write(fd, &pix, 4);
-			x++;
-		}
-		y--;
-	}
+	x = all->conf.res_x;
+	while (y--)
+		write(fd, all->img.screen.addr + y * x, x * 4);
 }
 
 void	ft_screenshot(t_all *all)
@@ -65,9 +47,10 @@ void	ft_screenshot(t_all *all)
 	int fd;
 
 	if ((fd = open("Screenshot.bmp", O_WRONLY | O_TRUNC | O_CREAT, 0777)) == -1)
-		ft_print_error("Screenshot file creation error", 30);
+		ft_print_error(all, "Screenshot file creation error", 30);
 	ft_header(fd, all);
 	ft_data_header(fd, all);
 	close(fd);
+	ft_free_memory(all);
 	exit(0);
 }

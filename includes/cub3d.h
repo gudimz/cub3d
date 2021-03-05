@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/27 23:39:00 by agigi            ###   ########.fr       */
+/*   Updated: 2021/03/06 00:46:24 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
-# define MAX_RES_X 1920
-# define MAX_RES_Y 1080
+# define MAX_RES_X 1440
+# define MAX_RES_Y 788
 # define MIN_RES_X 480
 # define MIN_RES_Y 272
 
@@ -91,7 +91,9 @@ typedef	struct		s_data
 {
 	void			*img;
 	t_color			*addr;
-	int				bits_p_pixel;
+	int				bits_pix;
+	int				line_len;
+	int				endian;
 	int				width;
 	int				height;
 }					t_data;
@@ -166,15 +168,15 @@ typedef	struct		s_all
 	t_wall			wall;
 }					t_all;
 
-int					ft_print_error(char *str, int len);
+int					ft_print_error(t_all *all, char *str, int len);
 int					ft_param_parser (char *line, t_all *all);
 void				ft_init_struct(t_all *all);
 int					ft_check_struct(t_all *all);
-int					ft_check_duplicate(char *path);
+int					ft_check_duplicate(t_all *all, char *path);
 void				ft_map_parser(char *line, t_all *all);
 void				ft_map_create(t_all *all);
 char				ft_map_char(t_all *all, size_t xx, size_t yy);
-int					ft_check_rgb_range(char *rgb);
+int					ft_check_rgb_range(t_all *all, char *rgb);
 void				ft_my_pixel_put(t_all *all, int x, int y, t_color color);
 void				ft_mlx_init(t_all *all);
 void				ft_drawing(int x, t_all *all);
@@ -189,7 +191,8 @@ void				ft_init_sprites(t_all *all);
 void				ft_sprites(t_all *all);
 void				ft_draw_sprites(t_all *all);
 void				ft_screenshot(t_all *all);
-char				**ft_memclear(char **array);
+void				ft_memclear(char **array);
 int					ft_close(t_all *all);
+void				ft_free_memory(t_all *all);
 
 #endif

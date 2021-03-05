@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 22:07:58 by agigi             #+#    #+#             */
-/*   Updated: 2021/02/27 22:54:52 by agigi            ###   ########.fr       */
+/*   Updated: 2021/03/05 20:42:40 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	ft_get_pix_textur_2(t_all *all, float x, float y)
 	if (all->render.wall_side == 2)
 	{
 		xx = all->img.north.width * x;
-		yy = all->img.north.width * y;
+		yy = all->img.north.height * y;
 		all->render.pix = all->img.north.addr[xx + yy * all->img.north.width];
 	}
 	else if (all->render.wall_side == 3)
 	{
 		xx = all->img.south.width * x;
-		yy = all->img.south.width * y;
+		yy = all->img.south.height * y;
 		all->render.pix = all->img.south.addr[xx + yy * all->img.south.width];
 	}
 }
@@ -39,13 +39,13 @@ void	ft_get_pix_textur(t_all *all, float x, float y)
 	if (all->render.wall_side == 0)
 	{
 		xx = all->img.west.width * (-x);
-		yy = all->img.west.width * y;
+		yy = all->img.west.height * y;
 		all->render.pix = all->img.west.addr[xx + yy * all->img.west.width];
 	}
 	else if (all->render.wall_side == 1)
 	{
 		xx = all->img.east.width * (-x);
-		yy = all->img.east.width * y;
+		yy = all->img.east.height * y;
 		all->render.pix = all->img.east.addr[xx + yy * all->img.east.width];
 	}
 	else if (all->render.wall_side == 2)
