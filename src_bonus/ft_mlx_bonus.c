@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx.c                                           :+:      :+:    :+:   */
+/*   ft_mlx_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/27 22:55:24 by agigi             #+#    #+#             */
-/*   Updated: 2021/03/06 16:44:43 by agigi            ###   ########.fr       */
+/*   Created: 2021/03/06 16:42:08 by agigi             #+#    #+#             */
+/*   Updated: 2021/03/06 16:42:10 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	ft_mlx_init(t_all *all)
 	&all->img.screen.endian);
 	ft_init_textur(all);
 	ft_init_sprites(all);
+	system("while true; do afplay sound/music_1.mp3 -v 0.1 || break; done &");
 	mlx_loop_hook(all->render.mlx, ft_next_frame, all);
 	mlx_hook(all->render.win, 2, 1L << 0, ft_keyboard_down, all);
 	mlx_hook(all->render.win, 3, 1L << 0, ft_keyboard_up, all);
