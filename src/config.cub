@@ -1,4 +1,4 @@
-R 1900 11900
+R 2560 1600
 
 SO ./textures/south.xpm
 WE ./textures/west.xpm

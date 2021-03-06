@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 23:05:01 by agigi             #+#    #+#             */
-/*   Updated: 2021/03/06 00:33:31 by agigi            ###   ########.fr       */
+/*   Updated: 2021/03/06 12:43:35 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ static void	ft_resol_parser(char **s, t_all *all)
 {
 	int i;
 	int j;
+	int width;
+	int height;
 
 	i = 0;
 	j = 0;
+	mlx_get_screen_size(&width, &height);
 	if (all->conf.res_x != -2 || all->conf.res_y != -2)
 		ft_print_error(all, "Resolution parameter is duplicated", 34);
 	while (s[++i])
@@ -31,15 +34,21 @@ static void	ft_resol_parser(char **s, t_all *all)
 			j++;
 		}
 	}
-	if ((all->conf.res_x = ft_atoi(s[1])) < 0 || all->conf.res_x > MAX_RES_X)
-		all->conf.res_x = MAX_RES_X;
-	if ((all->conf.res_y = ft_atoi(s[2])) < 0 || all->conf.res_y > MAX_RES_Y)
-		all->conf.res_y = MAX_RES_Y;
-	if (all->conf.res_x <= 120 || all->conf.res_y <= 68)
+	if ((all->conf.res_x = ft_atoi(s[1])) < 0 || (all->conf.res_y = \
+	ft_atoi(s[2])) < 0 || all->conf.res_x > width || all->conf.res_y > height)
 	{
-		all->conf.res_x = MIN_RES_X;
-		all->conf.res_y = MIN_RES_Y;
+		all->conf.res_x = width;
+		all->conf.res_y = height;
 	}
+	// if ((all->conf.res_x = ft_atoi(s[1])) < 0 || all->conf.res_x > MAX_RES_X)
+	// 	all->conf.res_x = MAX_RES_X;
+	// if ((all->conf.res_y = ft_atoi(s[2])) < 0 || all->conf.res_y > MAX_RES_Y)
+	// 	all->conf.res_y = MAX_RES_Y;
+	// if (all->conf.res_x <= 120 || all->conf.res_y <= 68)
+	// {
+	// 	all->conf.res_x = MIN_RES_X;
+	// 	all->conf.res_y = MIN_RES_Y;
+	// }
 }
 
 static void	ft_rgb_parser_color(char **str, char **rgb, t_all *all, int c)

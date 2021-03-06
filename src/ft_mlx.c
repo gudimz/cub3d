@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 22:55:24 by agigi             #+#    #+#             */
-/*   Updated: 2021/03/06 00:48:52 by agigi            ###   ########.fr       */
+/*   Updated: 2021/03/06 12:49:09 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	ft_mlx_init(t_all *all)
 	&all->img.screen.endian);
 	ft_init_textur(all);
 	ft_init_sprites(all);
-	system("while true; do afplay sound/music_1.mp3 -v 0.3 || break; done &");
+	system("while true; do afplay sound/music_1.mp3 -v 0.1 || break; done &");
 	mlx_loop_hook(all->render.mlx, ft_next_frame, all);
 	mlx_hook(all->render.win, 2, 1L << 0, ft_keyboard_down, all);
 	mlx_hook(all->render.win, 3, 1L << 0, ft_keyboard_up, all);

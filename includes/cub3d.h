@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 22:47:43 by agigi             #+#    #+#             */
-/*   Updated: 2021/03/06 00:46:24 by agigi            ###   ########.fr       */
+/*   Updated: 2021/03/06 12:47:04 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
-# define MAX_RES_X 1440
-# define MAX_RES_Y 788
-# define MIN_RES_X 480
-# define MIN_RES_Y 272
 
 typedef	struct		s_coord
 {
