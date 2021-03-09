@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/06 16:41:50 by agigi             #+#    #+#             */
-/*   Updated: 2021/03/06 16:41:52 by agigi            ###   ########.fr       */
+/*   Created: 2021/03/10 00:41:13 by agigi             #+#    #+#             */
+/*   Updated: 2021/03/10 00:41:25 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	ft_init_player(char *str, size_t xx, size_t yy, t_all *all)
 {
-	all->plr.pos.xx = xx;
-	all->plr.pos.yy = yy;
+	all->plr.pos.xx = xx + 0.5;
+	all->plr.pos.yy = yy + 0.5;
 	all->plr.move_speed = 0.05;
 	all->plr.rot_speed = 0.014;
 	if (str[xx] == 'N')
@@ -75,7 +75,7 @@ of the player", 54);
 		xx = 0;
 		while (xx < all->map.width)
 		{
-			if (ft_map_char(all, xx, yy) == '0')
+			if (!(ft_map_char(all, xx, yy) == '1' || !ft_map_char(all, xx, yy)))
 			{
 				if ((ft_map_char(all, xx, yy - 1) <= 0) || \
 				(ft_map_char(all, xx + 1, yy) <= 0) || \

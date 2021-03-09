@@ -6,11 +6,11 @@
 #    By: agigi <agigi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 23:16:17 by agigi             #+#    #+#              #
-#    Updated: 2021/03/06 19:16:50 by agigi            ###   ########.fr        #
+#    Updated: 2021/03/10 00:44:09 by agigi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Cub3D
+NAME = cub3D
 SRCDIR = ./src/
 SRCDIR_B = ./src_bonus/
 MLXDIR = ./mlx/
