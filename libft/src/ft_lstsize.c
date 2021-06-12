@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/30 20:48:28 by agigi             #+#    #+#             */
-/*   Updated: 2020/11/12 23:07:48 by agigi            ###   ########.fr       */
+/*   Created: 2020/11/08 16:57:30 by agigi             #+#    #+#             */
+/*   Updated: 2021/05/01 16:23:04 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dest, const char *src, size_t n)
+int	ft_lstsize(t_list *lst)
 {
-	size_t i;
-	size_t j;
+	int	count;
 
-	i = ft_strlen(dest);
-	j = ft_strlen(src);
-	if (i < n)
+	count = 0;
+	while (lst)
 	{
-		j = ft_strlcpy(dest + i, src, n - i);
-		return (j + i);
+		lst = lst->next;
+		count++;
 	}
-	return (j + n);
+	return (count);
 }

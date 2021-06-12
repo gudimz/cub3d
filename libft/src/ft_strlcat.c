@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/08 12:37:02 by agigi             #+#    #+#             */
-/*   Updated: 2020/11/12 23:08:49 by agigi            ###   ########.fr       */
+/*   Created: 2020/10/30 20:48:28 by agigi             #+#    #+#             */
+/*   Updated: 2021/05/01 16:35:10 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+size_t	ft_strlcat(char *dest, const char *src, size_t n)
 {
-	t_list *new_elem;
+	size_t	i;
+	size_t	j;
 
-	if (!(new_elem = (t_list *)malloc(sizeof(t_list))))
-		return (NULL);
-	new_elem->content = content;
-	new_elem->next = NULL;
-	return (new_elem);
+	i = ft_strlen(dest);
+	j = ft_strlen(src);
+	if (i < n)
+	{
+		j = ft_strlcpy(dest + i, src, n - i);
+		return (j + i);
+	}
+	return (j + n);
 }

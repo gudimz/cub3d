@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/01 17:37:14 by agigi             #+#    #+#             */
-/*   Updated: 2020/11/12 23:09:30 by agigi            ###   ########.fr       */
+/*   Created: 2021/05/12 23:52:48 by agigi             #+#    #+#             */
+/*   Updated: 2021/05/14 18:21:09 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+int	ft_strcmp(const char *str1, const char *str2)
 {
-	char	*mem;
 	size_t	i;
-	size_t	res_count;
 
 	i = 0;
-	res_count = count * size;
-	if (!(mem = (char *)malloc(res_count)))
-		return (NULL);
-	while (res_count--)
+	while ((str1[i] || str2[i]))
 	{
-		mem[i] = 0;
+		if (str1[i] != str2[i])
+			return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 		i++;
 	}
-	return (mem);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 18:55:02 by agigi             #+#    #+#             */
-/*   Updated: 2020/11/22 13:25:20 by agigi            ###   ########.fr       */
+/*   Updated: 2021/05/01 16:34:28 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*ft_strdup(const char *s1)
 	size_t	count;
 
 	count = ft_strlen(s1);
-	if (!(tmp = (char *)malloc(count + 1)))
+	tmp = (char *)malloc(count + 1);
+	if (!tmp)
 		return (NULL);
 	count = 0;
 	while (s1[count])
