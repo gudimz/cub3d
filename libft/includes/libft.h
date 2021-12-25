@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 00:33:44 by agigi             #+#    #+#             */
-/*   Updated: 2021/05/01 16:39:29 by agigi            ###   ########.fr       */
+/*   Updated: 2021/12/25 13:51:43 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
+# define ARRAY_SIZE 4096
 
 typedef struct s_list
 {
@@ -68,5 +73,6 @@ void				ft_lstclear(t_list **lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)\
 					(void *));
+int					get_next_line(int fd, char **line);
 
 #endif

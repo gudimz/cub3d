@@ -6,7 +6,7 @@
 /*   By: agigi <agigi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 22:07:58 by agigi             #+#    #+#             */
-/*   Updated: 2021/03/05 20:42:40 by agigi            ###   ########.fr       */
+/*   Updated: 2021/12/25 15:28:14 by agigi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,13 @@ void	ft_get_pix_textur(t_all *all, float x, float y)
 		all->render.pix = all->img.east.addr[xx + yy * all->img.east.width];
 	}
 	else if (all->render.wall_side == 2)
+	{
 		ft_get_pix_textur_2(all, x, y);
+	}
 	else if (all->render.wall_side == 3)
+	{
 		ft_get_pix_textur_2(all, x, y);
+	}
 }
 
 void	ft_draw_sprites(t_all *all)

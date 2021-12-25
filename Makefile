@@ -6,7 +6,7 @@
 #    By: agigi <agigi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 23:16:17 by agigi             #+#    #+#              #
-#    Updated: 2021/03/10 00:44:09 by agigi            ###   ########.fr        #
+#    Updated: 2021/12/25 15:18:02 by agigi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,9 @@ include $(wildcard $(D_FILES))
 bonus: fclean $(OBJS_B) | tools
 		$(CC) $(CFLAGS) -L$(LIBFTDIR) -lft $(OBJS_B) -L$(MLXDIR) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 include $(wildcard $(D_FILES_B))
+
+debug: CFLAGS += -fsanitize=address -g
+debug: all
 
 tools:
 		make -C $(LIBFTDIR)
