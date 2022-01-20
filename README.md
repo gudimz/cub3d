@@ -6,7 +6,7 @@ This project is inspired by the world-famous Wolfenstein 3D game, which was the 
 -----------------------------
 
 
-![alt text](https://drive.google.com/file/d/1yLwDuatmpZlS-dytOGBCkuCZjmXVOPwL/view?usp=sharing)
+![image](https://drive.google.com/uc?export=view&id=1yLwDuatmpZlS-dytOGBCkuCZjmXVOPwL)
 
 ### How to use?
 ------------------------------
