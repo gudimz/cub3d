@@ -1,4 +1,5 @@
-# ft_Cub3D. <img src= "https://drive.google.com/uc?export=view&id=1ij2s7U1Mj6Z67PFnXx5uVwuEuZHTABWg" width=-100 height=100>
+# ft_Cub3D. 
+<img src= "https://drive.google.com/uc?export=view&id=1ij2s7U1Mj6Z67PFnXx5uVwuEuZHTABWg" width=150 height=150>
 
 This project is inspired by the world-famous Wolfenstein 3D game, which was the first FPS ever. It will enable you to explore ray-casting. Your goal will be to make a dynamic view inside a maze, in which you’ll have to find your way.
 
